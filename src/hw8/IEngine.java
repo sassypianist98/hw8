@@ -20,13 +20,26 @@ public interface IEngine {
      * 
      * @param fileName
      * @return listings
+     * @TODO - Tiffany
      */
     public Collection<IListing> getListings(String fileName);
+
+    /**
+     * this method creates a list of listings that meet the score threshold
+     * 
+     * @param listings
+     * @param score
+     * @return
+     * 
+     * @TODO - Sarah E
+     */
+    public Collection<IListing> outputListings(Collection<IListing> listings, double minScore);
 
     /**
      * Prints listing information
      * 
      * @param listings
+     * @TODO - Sarah E
      */
     public void printListings(Collection<IListing> listings);
 
@@ -37,6 +50,8 @@ public interface IEngine {
      * 
      * @param listing, upperbound of price preference, lowerbound of price
      *                 preference
+     * 
+     * @TODO - Sarah E
      */
     public void checkPrice(IListing listing, int upperBound, int lowerBound);
 
@@ -46,6 +61,7 @@ public interface IEngine {
      * distanceCheck of listing =0
      * 
      * @param listing, distance max
+     * @TODO - Sarah E
      */
     public void checkDistance(IListing listing, int maxDistance);
 
@@ -54,6 +70,7 @@ public interface IEngine {
      * if yes, set reviewsCheck = 1 if no, set reviewsCheck = 0
      * 
      * @param listing, numReviews minimum
+     * @TODO - Sarah E
      */
     public void checkReviews(IListing listing, int numReviewsMin);
 
@@ -62,6 +79,7 @@ public interface IEngine {
      * yes, set propertyTypeCheck =1 if no, set propertyTypeCheck =0
      * 
      * @param listing, property type
+     * @TODO - Sarah E
      */
     public void checkPropertyType(IListing listing, String propertyType);
 
@@ -70,6 +88,7 @@ public interface IEngine {
      * yes, set roomTypeCheck =1 if no, set roomTypeCheck =0
      * 
      * @param listing, roomType
+     * @TODO - Sarah E
      */
     public void checkRoomType(IListing listing, String roomType);
 
@@ -78,6 +97,7 @@ public interface IEngine {
      * if yes, set accommodatesCheck =1 if no, set accommodatesCheck =0
      * 
      * @param listing, accommodates num
+     * @TODO - Sarah E
      */
     public void checkAccommodates(IListing listing, int accommodates);
 
@@ -85,6 +105,8 @@ public interface IEngine {
      * outputs list of property types
      * 
      * @param listings
+     * 
+     * @ TODO - Tiffany
      */
     public Collection<String> getPropertyType(Collection<IListing> listings);
 
@@ -92,7 +114,35 @@ public interface IEngine {
      * outputs list of room types
      * 
      * @param listings
+     * 
+     * @TODO - Tiffany
      */
     public Collection<String> getRoomType(Collection<IListing> listings);
+
+    /**
+     * this method computes the distance between two IListing objects based on
+     * lat and lon
+     * 
+     * @param latOrigin
+     * @param lonOrigin
+     * @param latDestination
+     * @param lonDestination
+     * @return
+     * @TODOD - Sarah S
+     */
+    public double computeDistance(double latOrigin, double lonOrigin, double latDestination,
+            double lonDestination);
+
+    /**
+     * this method returns a clique of listings where that are <= maxDistance
+     * away from the input listings. If this is true, then add an edge between
+     * the two listings
+     * 
+     * @param listing     - root of the clique
+     * @param maxDistance
+     * @TODO - Sarah S
+     */
+    public Collection<IListing> makeClique(Collection<IListing> allListings, IListing listing,
+            double maxDistance);
 
 }

@@ -1,6 +1,5 @@
 package hw8;
 
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,14 +11,6 @@ import java.util.Map;
  *
  */
 public interface IListing extends Comparable<IListing> {
-
-    /**
-     * This map stores the distances between the listings' zip codes and an
-     * epicenter in SF
-     * 
-     * @TODO: pull these numbers from Google Maps
-     */
-    public static final Map<Integer, Double> DISTANCES = null;
 
     /**
      * This map stores the percentage breakdown applied to each rank (1-6, where
@@ -41,30 +32,23 @@ public interface IListing extends Comparable<IListing> {
      * 0-100)
      * 
      * @return comparator object for the listings
+     * 
+     * @TODO - Tiffany
      */
     public static Comparator<IListing> byDescendingOrder() {
         return null;
     }
 
     /**
-     * Takes user params and returns k closest listings that align with the
-     * users preferences for continuous variables only
-     * 
-     * @param k, lowerBoundPrice, upperBoundPrice, distance, numReviews
-     * @return closest examples to query
-     * @TODO: clarify how to use this along with discrete variables
-     */
-    public Collection<IListing> kNearestNeighbors(int k, double lowerBoundPrice,
-            double upperBoundPrice, double distance, int numReviews);
-
-    /**
-     * As ther user ranks each feature type (1-6), it will be stored in a map
+     * As the user ranks each feature type (1-6), it will be stored in a map
      * associating each feature to a rank
      * 
      * @param user input scores (1-6)
      * @return map of features to ranking of importance
+     * 
+     * @TODO - Sarah E
      */
-    public Map<String, Double> userRank(int[] scores);
+    public Map<String, Double> userRank();
 
     /**
      * This method calculates the "final score" associated with a listing based
@@ -73,6 +57,9 @@ public interface IListing extends Comparable<IListing> {
      * 
      * @param map of feature type to user rank (1-6)
      * @return double score
+     * 
+     * @TODO - Sarah S
      */
     public double computeScore(Map<String, Double> userRank);
-}
+
+};
