@@ -17,7 +17,7 @@ public class Listing implements IListing {
     private int numReviews;
     private Collection<IListing> clique;
     private double score;
-    private double distance
+    private double distance;
     
     boolean priceCheck;
     boolean distanceCheck;
@@ -28,8 +28,7 @@ public class Listing implements IListing {
     
     @Override
     public int compareTo(IListing o) {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.getListingName().compareTo(((Listing) o).getListingName());
     }
 
     @Override
@@ -264,5 +263,4 @@ public class Listing implements IListing {
     public void setScore (double score) {
         this.score = score;
     }
-
 }
