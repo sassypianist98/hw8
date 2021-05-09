@@ -101,7 +101,7 @@ public interface IEngine {
      */
     public void checkAccommodates(IListing listing, int accommodates);
 
-    /*
+    /**
      * outputs list of property types
      * 
      * @param listings
@@ -110,7 +110,7 @@ public interface IEngine {
      */
     public Collection<String> getPropertyType(Collection<IListing> listings);
 
-    /*
+    /**
      * outputs list of room types
      * 
      * @param listings

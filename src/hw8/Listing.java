@@ -6,6 +6,7 @@ import java.util.Map;
 public class Listing implements IListing {
 
     // instance vars
+    String listingName;
     String propertyType;
     String roomType;
     double price;
@@ -18,8 +19,7 @@ public class Listing implements IListing {
 
     @Override
     public int compareTo(IListing o) {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.getListingName().compareTo(((Listing) o).getListingName());
     }
 
     @Override
@@ -33,5 +33,52 @@ public class Listing implements IListing {
         // TODO Auto-generated method stub
         return 0;
     }
+    
+    public String retPropertyType() {
+        return this.propertyType;
+    }
+    
+    public String retRoomType() {
+        return this.roomType;
+    }
+    
+    public double getScore() {
+        return this.score;
+    }
+    
+    public String getListingName() {
+        return this.listingName;
+    }
+    
+    public void setListing(String name) {
+        this.listingName = name;
+    }
+    
+    public void setPropertyType(String propertyType) {
+        this.propertyType = propertyType;
+    }
+    
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
+    }
+    
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    
+    public void setAccommodates(int num) {
+        this.accommodates = num;
+    }
+    
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+    
+    public void setLong(double lon) {
+        this.lon = lon;
+    }
 
+    public void setNumReviews(int numReviews) {
+        this.numReviews = numReviews;
+    }
 }

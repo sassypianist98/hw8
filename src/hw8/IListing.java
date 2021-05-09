@@ -36,7 +36,18 @@ public interface IListing extends Comparable<IListing> {
      * @TODO - Tiffany
      */
     public static Comparator<IListing> byDescendingOrder() {
-        return null;
+        // comparator terms by weight (descending)
+        Comparator<IListing> comp = new Comparator<IListing>() {
+            @Override
+            public int compare(IListing listing1, IListing listing2) {
+                double score1 = ((Listing) listing1).getScore();
+                double score2 = ((Listing) listing2).getScore(); 
+                    
+                return ((Double) score1).compareTo(score2);
+            }
+        };
+        
+        return comp; 
     }
 
     /**
