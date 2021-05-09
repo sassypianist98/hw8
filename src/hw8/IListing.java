@@ -61,5 +61,10 @@ public interface IListing extends Comparable<IListing> {
      * @TODO - Sarah S
      */
     public double computeScore(Map<String, Double> userRank);
-
+    
+    /**
+     * gets the listing's score
+     * @return
+     */
+    public double getScore();
 };

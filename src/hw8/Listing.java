@@ -16,6 +16,8 @@ public class Listing implements IListing {
     Collection<IListing> clique;
     double score;
 
+    
+    
     @Override
     public int compareTo(IListing o) {
         // TODO Auto-generated method stub
@@ -32,6 +34,12 @@ public class Listing implements IListing {
     public double computeScore(Map<String, Double> userRank) {
         // TODO Auto-generated method stub
         return 0;
+    }
+
+    @ Override
+    public double getScore () {
+        
+        return this.score;
     }
 
 }

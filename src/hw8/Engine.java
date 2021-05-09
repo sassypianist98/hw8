@@ -1,6 +1,8 @@
 package hw8;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class Engine implements IEngine {
 
@@ -17,8 +19,15 @@ public class Engine implements IEngine {
 
     @Override
     public Collection<IListing> outputListings(Collection<IListing> listings, double minScore) {
-        // TODO Auto-generated method stub
-        return null;
+        List<IListing> outputList = new ArrayList<IListing>();
+        
+        for(IListing listing : listings) {
+            
+            if(listing.getScore() >= minScore) {
+                outputList.add(listing);
+            } 
+        }
+        return outputList;
     }
 
     @Override
