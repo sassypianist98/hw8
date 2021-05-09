@@ -107,7 +107,7 @@ public class Engine implements IEngine {
 
         // traverse the Collection
 
-        // if the distance bw listning and current one is <= maxDistance then
+        // if the distance bw listing and current one is <= maxDistance then
         // add an edge - construct a new graph
 
     }

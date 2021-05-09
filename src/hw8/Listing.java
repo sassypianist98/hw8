@@ -30,12 +30,12 @@ public class Listing implements IListing {
 
     @Override
     public double computeScore(Map<String, Double> userRank) {
-        double priceScore = userRank.get("price") * checkPrice();
-        double distScore = userRank.get("distance") * checkDistance();
-        double reviewScore = userRank.get("num reviews") * checkReviews();
-        double accScore = userRank.get("accommodates") * checkAccommodates();
-        double roomScore = userRank.get("room type") * checkRoomType();
-        double propertyScore = userRank.get("price") * checkPropertyType();
+        double priceScore = userRank.get("Price") * checkPrice();
+        double distScore = userRank.get("Distance") * checkDistance();
+        double reviewScore = userRank.get("Number of Reviews") * checkReviews();
+        double accScore = userRank.get("Accommodates") * checkAccommodates();
+        double roomScore = userRank.get("Room Type") * checkRoomType();
+        double propertyScore = userRank.get("Property Type") * checkPropertyType();
 
         score = priceScore + distScore + reviewScore + accScore + roomScore + propertyScore;
 
