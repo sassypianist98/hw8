@@ -64,62 +64,6 @@ public interface IListing extends Comparable<IListing> {
     public double computeScore(Map<String, Double> userRank);
    
     
-    /**
-     * getters and setters
-     * 
-     * 
-     */
-    public double getScore ();
-
-    public String getPropertyType ();
-
-    public String getRoomType ();
-    
-    public double getPrice ();
-
-    public int getAccommodates ();
-
-    public double getLat ();
-
-    public double getLon ();
-    
-    public double getDistance();
-
-    public int getNumReviews ();
-    
-    
-    
-    public Collection <IListing> getClique ();
-
-    public void setClique (Collection <IListing> clique);
-
-    public void setScore (double score);
-    
-
-   
-    public boolean isPriceCheck ();
-
-    public void setPriceCheck (boolean priceCheck);
-
-    public boolean isDistanceCheck ();
-
-    public void setDistanceCheck (boolean distanceCheck);
-
-    public boolean isPropertyTypeCheck ();
-
-    public void setPropertyTypeCheck (boolean propertyTypeCheck);
-
-    public boolean isRoomTypeCheck ();
-
-    public void setRoomTypeCheck (boolean roomTypeCheck);
-    
-    public boolean isReviewsCheck ();
-    
-    public void setReviewsCheck (boolean reviewsCheck);
-
-    public boolean isAccommodatesCheck ();
-
-    public void setAccommodatesCheck (boolean accommodatesCheck);
 
     
 };

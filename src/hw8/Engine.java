@@ -22,11 +22,11 @@ public class Engine implements IEngine {
     public Collection<IListing> outputListings(Collection<IListing> listings, double minScore) {
         outputList = new ArrayList<IListing>();
 
-        for(IListing listing : listings) {
+        for (IListing listing : listings) {
 
-            if(listing.getScore() >= minScore) {
+            if (((Listing) listing).getScore() >= minScore) {
                 outputList.add(listing);
-            } 
+            }
         }
         return outputList;
     }
@@ -38,62 +38,56 @@ public class Engine implements IEngine {
     }
 
     @Override
-    public void checkPrice(IListing listing, int upperBound, int lowerBound) {
-        if((listing.getPrice() > lowerBound ) &&(listing.getPrice()< upperBound)) {
-            listing.setPriceCheck(true);
+    public int checkPrice(IListing listing, int upperBound, int lowerBound) {
+        if ((((Listing) listing).getPrice() > lowerBound)
+                && (((Listing) listing).getPrice() < upperBound)) {
+            return 1;
         }
-        else {
-            listing.setPriceCheck(false);
-        }
+        return 0;
     }
 
     @Override
     public void checkDistance(IListing listing, int maxDistance) {
-        if(listing.getDistance() <= maxDistance){
-            listing.setDistanceCheck(true);
-        }
-        else {
-            listing.setDistanceCheck(false);
-        }
-    }
-
-    @Override
-    public void checkReviews(IListing listing, int numReviewsMin) {
-        if(listing.getNumReviews() >= numReviewsMin) {
-            listing.setReviewsCheck(true);
-        }
-        else {
-            listing.setReviewsCheck(false);
+        if (((Listing) listing).getDistance() <= maxDistance) {
+            ((Listing) listing).setDistanceCheck(1);
+        } else {
+            listing.setDistanceCheck(0);
         }
     }
 
     @Override
-    public void checkPropertyType(IListing listing, String propertyType) {
-        if(listing.getPropertyType().equals(propertyType)) {
-            listing.setPropertyTypeCheck(true);
-        }
-        else {
-            listing.setPropertyTypeCheck(false);
-        }
-    }
-
-    @Override
-    public void checkRoomType(IListing listing, String roomType) {
-        if(listing.getRoomType().equals(roomType)) {
-            listing.setRoomTypeCheck(true);
-        }
-        else {
-            listing.setRoomTypeCheck(false);
+    public int checkReviews(IListing listing, int numReviewsMin) {
+        if (listing.getNumReviews() >= numReviewsMin) {
+            listing.setReviewsCheck(1);
+        } else {
+            listing.setReviewsCheck(0);
         }
     }
 
     @Override
-    public void checkAccommodates(IListing listing, int accommodates) {
-        if(listing.getAccommodates() >= accommodates) {
-            listing.setAccommodatesCheck(true);
+    public int checkPropertyType(IListing listing, String propertyType) {
+        if (listing.getPropertyType().equals(propertyType)) {
+            listing.setPropertyTypeCheck(1);
+        } else {
+            listing.setPropertyTypeCheck(0);
         }
-        else {
-            listing.setAccommodatesCheck(false);
+    }
+
+    @Override
+    public int checkRoomType(IListing listing, String roomType) {
+        if (listing.getRoomType().equals(roomType)) {
+            listing.setRoomTypeCheck(1);
+        } else {
+            listing.setRoomTypeCheck(0);
+        }
+    }
+
+    @Override
+    public int checkAccommodates(IListing listing, int accommodates) {
+        if (listing.getAccommodates() >= accommodates) {
+            listing.setAccommodatesCheck(1);
+        } else {
+            listing.setAccommodatesCheck(0);
         }
     }
 

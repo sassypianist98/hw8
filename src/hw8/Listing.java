@@ -8,25 +8,24 @@ import java.util.Scanner;
 public class Listing implements IListing {
 
     // instance vars
-    String propertyType;
-    String roomType;
-    double price;
-    int accommodates;
-    double lat;
-    double lon;
-    int numReviews;
-    Collection<IListing> clique;
-    double score;
-    double distance;
+    private String propertyType;
+    private String roomType;
+    private double price;
+    private int accommodates;
+    private double lat;
+    private double lon;
+    private int numReviews;
+    private Collection<IListing> clique;
+    private double score;
+    private double distance;
 
-    
-    boolean priceCheck;
-    boolean distanceCheck;
-    boolean propertyTypeCheck;
-    boolean roomTypeCheck;
-    boolean reviewsCheck;
-    boolean accommodatesCheck;
-    
+    private int priceCheck;
+    private int distanceCheck;
+    private int propertyTypeCheck;
+    private int roomTypeCheck;
+    private int reviewsCheck;
+    private int accommodatesCheck;
+
     @Override
     public int compareTo(IListing o) {
         // TODO Auto-generated method stub
@@ -37,19 +36,19 @@ public class Listing implements IListing {
     public Map<String, Integer> userRank() {
         Map<String, Integer> rankingMap = new HashMap<String, Integer>();
         Scanner s = new Scanner(System.in);
-        rankingMap.put("Price", 1);
-        rankingMap.put("Accommodates", 1);
-        rankingMap.put("Property Type", 1);
-        rankingMap.put("Room Type", 1);
-        rankingMap.put("Number of Reviews", 1);
-        
-        for(Map.Entry <String, Integer> entry : rankingMap.entrySet() ) {
+        rankingMap.put("Price", null);
+        rankingMap.put("Accommodates", null);
+        rankingMap.put("Property Type", null);
+        rankingMap.put("Room Type", null);
+        rankingMap.put("Number of Reviews", null);
+
+        for (Map.Entry<String, Integer> entry : rankingMap.entrySet()) {
             System.out.println("Enter ranking (1-6) for: " + entry.getKey());
-            
-            int rank  = s.nextInt();
+
+            int rank = s.nextInt();
             rankingMap.put(entry.getKey(), rank);
         }
-        
+
         return rankingMap;
     }
 
@@ -59,130 +58,127 @@ public class Listing implements IListing {
         return 0;
     }
 
-    
-    public boolean isPriceCheck () {
+    public int isPriceCheck() {
         return priceCheck;
     }
 
-    public void setPriceCheck (boolean priceCheck) {
+    public void setPriceCheck(int priceCheck) {
         this.priceCheck = priceCheck;
     }
 
-    public boolean isDistanceCheck () {
+    public int isDistanceCheck() {
         return distanceCheck;
     }
 
-    public void setDistanceCheck (boolean distanceCheck) {
+    public void setDistanceCheck(int distanceCheck) {
         this.distanceCheck = distanceCheck;
     }
 
-    public boolean isPropertyTypeCheck () {
+    public int isPropertyTypeCheck() {
         return propertyTypeCheck;
     }
 
-    public void setPropertyTypeCheck (boolean propertyTypeCheck) {
+    public void setPropertyTypeCheck(int propertyTypeCheck) {
         this.propertyTypeCheck = propertyTypeCheck;
     }
 
-    public boolean isRoomTypeCheck () {
+    public int isRoomTypeCheck() {
         return roomTypeCheck;
     }
 
-    public void setRoomTypeCheck (boolean roomTypeCheck) {
+    public void setRoomTypeCheck(int roomTypeCheck) {
         this.roomTypeCheck = roomTypeCheck;
     }
 
-    public boolean isReviewsCheck () {
+    public int isReviewsCheck() {
         return reviewsCheck;
     }
 
-    public void setReviewsCheck (boolean reviewsCheck) {
+    public void setReviewsCheck(int reviewsCheck) {
         this.reviewsCheck = reviewsCheck;
     }
 
-    public boolean isAccommodatesCheck () {
+    public int isAccommodatesCheck() {
         return accommodatesCheck;
     }
 
-    public void setAccommodatesCheck (boolean accommodatesCheck) {
+    public void setAccommodatesCheck(int accommodatesCheck) {
         this.accommodatesCheck = accommodatesCheck;
     }
 
-
-    
     public double getDistance() {
         return this.distance;
     }
-    
-    public double getScore () {
+
+    public double getScore() {
         return this.score;
     }
 
-    public String getPropertyType () {
+    public String getPropertyType() {
         return propertyType;
     }
 
-    public void setPropertyType (String propertyType) {
+    public void setPropertyType(String propertyType) {
         this.propertyType = propertyType;
     }
 
-    public String getRoomType () {
+    public String getRoomType() {
         return roomType;
     }
 
-    public void setRoomType (String roomType) {
+    public void setRoomType(String roomType) {
         this.roomType = roomType;
     }
 
-    public double getPrice () {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice (double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public int getAccommodates () {
+    public int getAccommodates() {
         return accommodates;
     }
 
-    public void setAccommodates (int accommodates) {
+    public void setAccommodates(int accommodates) {
         this.accommodates = accommodates;
     }
 
-    public double getLat () {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat (double lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public double getLon () {
+    public double getLon() {
         return lon;
     }
 
-    public void setLon (double lon) {
+    public void setLon(double lon) {
         this.lon = lon;
     }
 
-    public int getNumReviews () {
+    public int getNumReviews() {
         return numReviews;
     }
 
-    public void setNumReviews (int numReviews) {
+    public void setNumReviews(int numReviews) {
         this.numReviews = numReviews;
     }
 
-    public Collection <IListing> getClique () {
+    public Collection<IListing> getClique() {
         return clique;
     }
 
-    public void setClique (Collection <IListing> clique) {
+    public void setClique(Collection<IListing> clique) {
         this.clique = clique;
     }
 
-    public void setScore (double score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
