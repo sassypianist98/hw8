@@ -4,9 +4,9 @@ import java.util.Collection;
 
 public class Engine implements IEngine {
 
-    double maxDistance;
-    IListing root;
-    Collection<IListing> allListings;
+    private double maxDistance;
+    private IListing root;
+    private Collection<IListing> allListings;
     // TODO - add stuff about graphs
 
     @Override
@@ -75,18 +75,40 @@ public class Engine implements IEngine {
         return null;
     }
 
+    /**
+     * using the haversine formula to compute the distance between two points in
+     * miles
+     * 
+     * Sources used for formula:
+     * https://andrew.hedges.name/experiments/haversine/
+     * https://www.movable-type.co.uk/scripts/latlong.html
+     */
     @Override
-    public double computeDistance(double latOrigin, double lonOrigin, double latDestination,
-            double lonDestination) {
-        // TODO Auto-generated method stub
-        return 0;
+    public double computeDistance(IListing l1, IListing l2) {
+        double earthRadius = 3961;
+
+        double lat2Rad = ((Listing) l2).getLat() * Math.PI / 180;
+        double lat1Rad = ((Listing) l1).getLat() * Math.PI / 180;
+        double dLonRad = (((Listing) l2).getLon() - ((Listing) l1).getLon()) * Math.PI / 180;
+        double dLatRad = (((Listing) l2).getLat() - ((Listing) l1).getLat()) * Math.PI / 180;
+
+        double a = Math.pow(Math.sin(dLatRad / 2), 2)
+                + (Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.pow(Math.sin(dLonRad / 2), 2));
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double dist = earthRadius * c;
+
+        return dist;
     }
 
     @Override
-    public Collection<IListing> makeClique(Collection<IListing> allListings, IListing listing,
+    public Graph makeClique(Collection<IListing> allListings, IListing listing,
             double maxDistance) {
-        // TODO Auto-generated method stub
-        return null;
+
+        // traverse the Collection
+        
+        // if the distance bw listning and current one is <= maxDistance then add an edge - construct a new graph
+        
     }
+
 
 }
