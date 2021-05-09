@@ -42,6 +42,10 @@ public interface IListing extends Comparable<IListing> {
             public int compare(IListing listing1, IListing listing2) {
                 double score1 = ((Listing) listing1).getScore();
                 double score2 = ((Listing) listing2).getScore(); 
+                
+                if (((Double) score1).compareTo(score2) == 0) { // lexicographic if same score
+                    return ((Listing) listing1).getListingName().compareTo(((Listing) listing2).getListingName());
+                }
                     
                 return ((Double) score1).compareTo(score2);
             }

@@ -6,9 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Engine implements IEngine {
 
@@ -109,7 +109,7 @@ public class Engine implements IEngine {
 
     @Override
     public Collection<String> getPropertyType(Collection<IListing> listings) {
-        Set<String> propertyTypes = new HashSet<>();
+        Set<String> propertyTypes = new TreeSet<>();
         
         for (IListing listing : listings) {
             if (!propertyTypes.contains(((Listing) listing).retPropertyType())) {
@@ -122,7 +122,7 @@ public class Engine implements IEngine {
 
     @Override
     public Collection<String> getRoomType(Collection<IListing> listings) {
-        Set<String> roomTypes = new HashSet<>();
+        Set<String> roomTypes = new TreeSet<>();
         
         for (IListing listing : listings) {
             if (!roomTypes.contains(((Listing) listing).retRoomType())) {
@@ -146,10 +146,4 @@ public class Engine implements IEngine {
         // TODO Auto-generated method stub
         return null;
     }
-    
-    public static void main(String[] args) {
-        Engine e = new Engine();
-        e.getListings("listings.csv");
-    }
-
 }
