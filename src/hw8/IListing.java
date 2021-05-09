@@ -1,5 +1,6 @@
 package hw8;
 
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -61,10 +62,74 @@ public interface IListing extends Comparable<IListing> {
      * @TODO - Sarah S
      */
     public double computeScore(Map<String, Double> userRank);
+   
     
     /**
-     * gets the listing's score
-     * @return
+     * getters and setters
+     * 
+     * 
      */
-    public double getScore();
+    public double getScore ();
+
+    public String getPropertyType ();
+    
+    public void setPropertyType (String propertyType);
+
+    public String getRoomType ();
+    
+    public void setRoomType (String roomType);
+    
+    public double getPrice ();
+
+    public void setPrice (double price);
+
+    public int getAccommodates ();
+
+    public void setAccommodates (int accommodates);
+
+    public double getLat ();
+
+    public void setLat (double lat);
+
+    public double getLon ();
+
+    public void setLon (double lon);
+    
+    public int getNumReviews ();
+    
+    public void setNumReviews (int numReviews);
+
+    public Collection <IListing> getClique ();
+
+    public void setClique (Collection <IListing> clique);
+
+    public void setScore (double score);
+    
+    public double getDistance();
+    
+    public boolean isPriceCheck ();
+
+    public void setPriceCheck (boolean priceCheck);
+
+    public boolean isDistanceCheck ();
+
+    public void setDistanceCheck (boolean distanceCheck);
+
+    public boolean isPropertyTypeCheck ();
+
+    public void setPropertyTypeCheck (boolean propertyTypeCheck);
+
+    public boolean isRoomTypeCheck ();
+
+    public void setRoomTypeCheck (boolean roomTypeCheck);
+    
+    public boolean isReviewsCheck ();
+    
+    public void setReviewsCheck (boolean reviewsCheck);
+
+    public boolean isAccommodatesCheck ();
+
+    public void setAccommodatesCheck (boolean accommodatesCheck);
+
+    
 };

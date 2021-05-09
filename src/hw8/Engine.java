@@ -21,9 +21,9 @@ public class Engine implements IEngine {
     @Override
     public Collection<IListing> outputListings(Collection<IListing> listings, double minScore) {
         outputList = new ArrayList<IListing>();
-        
+
         for(IListing listing : listings) {
-            
+
             if(listing.getScore() >= minScore) {
                 outputList.add(listing);
             } 
@@ -39,38 +39,62 @@ public class Engine implements IEngine {
 
     @Override
     public void checkPrice(IListing listing, int upperBound, int lowerBound) {
-        // TODO Auto-generated method stub
-
+        if((listing.getPrice() > lowerBound ) &&(listing.getPrice()< upperBound)) {
+            listing.setPriceCheck(true);
+        }
+        else {
+            listing.setPriceCheck(false);
+        }
     }
 
     @Override
     public void checkDistance(IListing listing, int maxDistance) {
-        // TODO Auto-generated method stub
-
+        if(listing.getDistance() <= maxDistance){
+            listing.setDistanceCheck(true);
+        }
+        else {
+            listing.setDistanceCheck(false);
+        }
     }
 
     @Override
     public void checkReviews(IListing listing, int numReviewsMin) {
-        // TODO Auto-generated method stub
-
+        if(listing.getNumReviews() >= numReviewsMin) {
+            listing.setReviewsCheck(true);
+        }
+        else {
+            listing.setReviewsCheck(false);
+        }
     }
 
     @Override
     public void checkPropertyType(IListing listing, String propertyType) {
-        // TODO Auto-generated method stub
-
+        if(listing.getPropertyType().equals(propertyType)) {
+            listing.setPropertyTypeCheck(true);
+        }
+        else {
+            listing.setPropertyTypeCheck(false);
+        }
     }
 
     @Override
     public void checkRoomType(IListing listing, String roomType) {
-        // TODO Auto-generated method stub
-
+        if(listing.getRoomType().equals(roomType)) {
+            listing.setRoomTypeCheck(true);
+        }
+        else {
+            listing.setRoomTypeCheck(false);
+        }
     }
 
     @Override
     public void checkAccommodates(IListing listing, int accommodates) {
-        // TODO Auto-generated method stub
-
+        if(listing.getAccommodates() >= accommodates) {
+            listing.setAccommodatesCheck(true);
+        }
+        else {
+            listing.setAccommodatesCheck(false);
+        }
     }
 
     @Override
