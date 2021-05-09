@@ -26,8 +26,7 @@ public class Engine implements IEngine {
             BufferedReader r = new BufferedReader(new FileReader(fileName));
 
             String line = r.readLine();
-            String[] detailsTemp = line.split(",");
-            System.out.println(detailsTemp.length);
+            
             // get all sequences in the current file
             while ((line = r.readLine()) != null) {
 
@@ -56,9 +55,6 @@ public class Engine implements IEngine {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        System.out.println(((Listing) listings.get(2)).getListingName());
-        
         
         return listings;
     }
