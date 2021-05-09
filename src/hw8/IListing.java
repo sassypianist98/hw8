@@ -49,7 +49,7 @@ public interface IListing extends Comparable<IListing> {
      * 
      * @TODO - Sarah E
      */
-    public Map<String, Double> userRank();
+    public Map<String, Integer> userRank();
 
     /**
      * This method calculates the "final score" associated with a listing based
@@ -72,41 +72,31 @@ public interface IListing extends Comparable<IListing> {
     public double getScore ();
 
     public String getPropertyType ();
-    
-    public void setPropertyType (String propertyType);
 
     public String getRoomType ();
     
-    public void setRoomType (String roomType);
-    
     public double getPrice ();
-
-    public void setPrice (double price);
 
     public int getAccommodates ();
 
-    public void setAccommodates (int accommodates);
-
     public double getLat ();
 
-    public void setLat (double lat);
-
     public double getLon ();
-
-    public void setLon (double lon);
     
+    public double getDistance();
+
     public int getNumReviews ();
     
-    public void setNumReviews (int numReviews);
-
+    
+    
     public Collection <IListing> getClique ();
 
     public void setClique (Collection <IListing> clique);
 
     public void setScore (double score);
     
-    public double getDistance();
-    
+
+   
     public boolean isPriceCheck ();
 
     public void setPriceCheck (boolean priceCheck);

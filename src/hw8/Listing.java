@@ -1,7 +1,9 @@
 package hw8;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Listing implements IListing {
 
@@ -32,9 +34,23 @@ public class Listing implements IListing {
     }
 
     @Override
-    public Map<String, Double> userRank() {
-        // TODO Auto-generated method stub
-        return null;
+    public Map<String, Integer> userRank() {
+        Map<String, Integer> rankingMap = new HashMap<String, Integer>();
+        Scanner s = new Scanner(System.in);
+        rankingMap.put("Price", 1);
+        rankingMap.put("Accommodates", 1);
+        rankingMap.put("Property Type", 1);
+        rankingMap.put("Room Type", 1);
+        rankingMap.put("Number of Reviews", 1);
+        
+        for(Map.Entry <String, Integer> entry : rankingMap.entrySet() ) {
+            System.out.println("Enter ranking (1-6) for: " + entry.getKey());
+            
+            int rank  = s.nextInt();
+            rankingMap.put(entry.getKey(), rank);
+        }
+        
+        return rankingMap;
     }
 
     @Override
