@@ -103,12 +103,13 @@ public class Engine implements IEngine {
     @Override
     public Graph makeClique(Collection<IListing> allListings, IListing listing,
             double maxDistance) {
+        return null;
 
         // traverse the Collection
-        
-        // if the distance bw listning and current one is <= maxDistance then add an edge - construct a new graph
-        
-    }
 
+        // if the distance bw listning and current one is <= maxDistance then
+        // add an edge - construct a new graph
+
+    }
 
 }
