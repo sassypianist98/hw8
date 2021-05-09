@@ -37,11 +37,11 @@ public class Engine implements IEngine {
                 
                 IListing listing = new Listing();
                 ((Listing) listing).setListing(details[0]);
+                ((Listing) listing).setLat(Double.parseDouble(details[1]));
+                ((Listing) listing).setLong(Double.parseDouble(details[2]));
                 ((Listing) listing).setPropertyType(details[3]);
                 ((Listing) listing).setRoomType(details[4]);
                 ((Listing) listing).setAccommodates(Integer.parseInt(details[5]));
-                ((Listing) listing).setLat(Double.parseDouble(details[1]));
-                ((Listing) listing).setLong(Double.parseDouble(details[2]));
                 ((Listing) listing).setPrice(Double.parseDouble(details[6]
                         .replaceAll("[^\\d.]", "")));
                 ((Listing) listing).setNumReviews(Integer.parseInt(details[7]));
