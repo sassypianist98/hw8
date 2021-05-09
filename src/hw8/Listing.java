@@ -18,6 +18,7 @@ public class Listing implements IListing {
     private Collection<IListing> clique;
     private double score;
     private double distance;
+<<<<<<< HEAD
     
     boolean priceCheck;
     boolean distanceCheck;
@@ -25,6 +26,8 @@ public class Listing implements IListing {
     boolean roomTypeCheck;
     boolean reviewsCheck;
     boolean accommodatesCheck;
+=======
+>>>>>>> 3ad6ea332447eeff8b7f52e927aefa00702a9944
     
     @Override
     public int compareTo(IListing o) {
@@ -138,59 +141,13 @@ public class Listing implements IListing {
     }
 
     
-    public boolean isPriceCheck () {
-        return priceCheck;
-    }
-
-    public void setPriceCheck (boolean priceCheck) {
-        this.priceCheck = priceCheck;
-    }
-
-    public boolean isDistanceCheck () {
-        return distanceCheck;
-    }
-
-    public void setDistanceCheck (boolean distanceCheck) {
-        this.distanceCheck = distanceCheck;
-    }
-
-    public boolean isPropertyTypeCheck () {
-        return propertyTypeCheck;
-    }
-
-    public void setPropertyTypeCheck (boolean propertyTypeCheck) {
-        this.propertyTypeCheck = propertyTypeCheck;
-    }
-
-    public boolean isRoomTypeCheck () {
-        return roomTypeCheck;
-    }
-
-    public void setRoomTypeCheck (boolean roomTypeCheck) {
-        this.roomTypeCheck = roomTypeCheck;
-    }
-
-    public boolean isReviewsCheck () {
-        return reviewsCheck;
-    }
-
-    public void setReviewsCheck (boolean reviewsCheck) {
-        this.reviewsCheck = reviewsCheck;
-    }
-
-    public boolean isAccommodatesCheck () {
-        return accommodatesCheck;
-    }
-
-    public void setAccommodatesCheck (boolean accommodatesCheck) {
-        this.accommodatesCheck = accommodatesCheck;
-    }
-
+   
 
     
     public double getDistance() {
         return this.distance;
     }
+<<<<<<< HEAD
     
     public double getScore () {
         return this.score;
@@ -263,4 +220,8 @@ public class Listing implements IListing {
     public void setScore (double score) {
         this.score = score;
     }
+=======
+   
+
+>>>>>>> 3ad6ea332447eeff8b7f52e927aefa00702a9944
 }
