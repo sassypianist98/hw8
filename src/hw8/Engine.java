@@ -26,19 +26,26 @@ public class Engine implements IEngine {
             BufferedReader r = new BufferedReader(new FileReader(fileName));
 
             String line = r.readLine();
+            String[] detailsTemp = line.split(",");
+            System.out.println(detailsTemp.length);
             // get all sequences in the current file
             while ((line = r.readLine()) != null) {
+
+                System.out.println(line);
                 String[] details = line.split(",");
                 
+                System.out.println(details.length);
+                
                 IListing listing = new Listing();
-                ((Listing) listing).setListing(details[4]);
-                ((Listing) listing).setPropertyType(details[52]);
-                ((Listing) listing).setRoomType(details[53]);
-                ((Listing) listing).setAccommodates(Integer.parseInt(details[54]));
-                ((Listing) listing).setLat(Double.parseDouble(details[49]));
-                ((Listing) listing).setLong(Double.parseDouble(details[50]));
-                ((Listing) listing).setPrice(Double.parseDouble(details[61]));
-                ((Listing) listing).setNumReviews(Integer.parseInt(details[83]));
+                ((Listing) listing).setListing(details[0]);
+                ((Listing) listing).setPropertyType(details[3]);
+                ((Listing) listing).setRoomType(details[4]);
+                ((Listing) listing).setAccommodates(Integer.parseInt(details[5]));
+                ((Listing) listing).setLat(Double.parseDouble(details[1]));
+                ((Listing) listing).setLong(Double.parseDouble(details[2]));
+                ((Listing) listing).setPrice(Double.parseDouble(details[6]
+                        .replaceAll("[^\\d.]", "")));
+                ((Listing) listing).setNumReviews(Integer.parseInt(details[7]));
                 
                 listings.add(listing);
             }
@@ -49,6 +56,9 @@ public class Engine implements IEngine {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        System.out.println(((Listing) listings.get(2)).getListingName());
+        
         
         return listings;
     }
