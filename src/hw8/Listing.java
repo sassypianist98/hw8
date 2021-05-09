@@ -18,16 +18,12 @@ public class Listing implements IListing {
     private Collection<IListing> clique;
     private double score;
     private double distance;
-<<<<<<< HEAD
-    
     boolean priceCheck;
     boolean distanceCheck;
     boolean propertyTypeCheck;
     boolean roomTypeCheck;
     boolean reviewsCheck;
     boolean accommodatesCheck;
-=======
->>>>>>> 3ad6ea332447eeff8b7f52e927aefa00702a9944
     
     @Override
     public int compareTo(IListing o) {
@@ -147,7 +143,6 @@ public class Listing implements IListing {
     public double getDistance() {
         return this.distance;
     }
-<<<<<<< HEAD
     
     public double getScore () {
         return this.score;
@@ -220,8 +215,4 @@ public class Listing implements IListing {
     public void setScore (double score) {
         this.score = score;
     }
-=======
-   
-
->>>>>>> 3ad6ea332447eeff8b7f52e927aefa00702a9944
 }
