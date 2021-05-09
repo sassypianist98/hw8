@@ -130,8 +130,7 @@ public interface IEngine {
      * @return
      * @TODOD - Sarah S
      */
-    public double computeDistance(double latOrigin, double lonOrigin, double latDestination,
-            double lonDestination);
+    public double computeDistance(IListing l1, IListing l2);
 
     /**
      * this method returns a clique of listings where that are <= maxDistance
@@ -142,7 +141,7 @@ public interface IEngine {
      * @param maxDistance
      * @TODO - Sarah S
      */
-    public Collection<IListing> makeClique(Collection<IListing> allListings, IListing listing,
+    public Graph makeClique(Collection<IListing> allListings, IListing listing,
             double maxDistance);
 
 }
