@@ -2,10 +2,13 @@ package hw8;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Engine implements IEngine {
 
+
+    private ArrayList<IListing> outputList;
     private double maxDistance;
     private IListing root;
     private Collection<IListing> allListings;
@@ -19,57 +22,76 @@ public class Engine implements IEngine {
 
     @Override
     public Collection<IListing> outputListings(Collection<IListing> listings, double minScore) {
-        List<IListing> outputList = new ArrayList<IListing>();
-        
-        for(IListing listing : listings) {
-            
-            if(listing.getScore() >= minScore) {
+        outputList = new ArrayList<IListing>();
+
+        for (IListing listing : listings) {
+
+            if (((Listing) listing).getScore() >= minScore) {
                 outputList.add(listing);
-            } 
+            }
         }
         return outputList;
     }
 
     @Override
     public void printListings(Collection<IListing> listings) {
-        // TODO Auto-generated method stub
+        Collections.sort(outputList, IListing.byDescendingOrder());
+        System.out.println(outputList);
 
     }
 
     @Override
-    public void checkPrice(IListing listing, int upperBound, int lowerBound) {
-        // TODO Auto-generated method stub
-
+    public int checkPrice(IListing listing, int upperBound, int lowerBound) {
+        if ((((Listing) listing).getPrice() > lowerBound)
+                && (((Listing) listing).getPrice() < upperBound)) {
+            return 1;
+        }
+        return 0;
     }
 
     @Override
-    public void checkDistance(IListing listing, int maxDistance) {
-        // TODO Auto-generated method stub
-
+    public int checkDistance(IListing listing, int maxDistance) {
+        if (((Listing) listing).getDistance() <= maxDistance) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override
-    public void checkReviews(IListing listing, int numReviewsMin) {
-        // TODO Auto-generated method stub
-
+    public int checkReviews(IListing listing, int numReviewsMin) {
+        if (((Listing) listing).getNumReviews() >= numReviewsMin) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override
-    public void checkPropertyType(IListing listing, String propertyType) {
-        // TODO Auto-generated method stub
-
+    public int checkPropertyType(IListing listing, String propertyType) {
+        if (((Listing) listing).getPropertyType().equals(propertyType)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override
-    public void checkRoomType(IListing listing, String roomType) {
-        // TODO Auto-generated method stub
-
+    public int checkRoomType(IListing listing, String roomType) {
+        if (((Listing) listing).getRoomType().equals(roomType)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override
-    public void checkAccommodates(IListing listing, int accommodates) {
-        // TODO Auto-generated method stub
-
+    public int checkAccommodates(IListing listing, int accommodates) {
+        if (((Listing) listing).getAccommodates() >= accommodates) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override

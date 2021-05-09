@@ -1,5 +1,6 @@
 package hw8;
 
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +49,7 @@ public interface IListing extends Comparable<IListing> {
      * 
      * @TODO - Sarah E
      */
-    public Map<String, Double> userRank();
+    public Map<String, Integer> userRank();
 
     /**
      * This method calculates the "final score" associated with a listing based
@@ -61,10 +62,8 @@ public interface IListing extends Comparable<IListing> {
      * @TODO - Sarah S
      */
     public double computeScore(Map<String, Double> userRank);
+   
     
-    /**
-     * gets the listing's score
-     * @return
-     */
-    public double getScore();
+
+    
 };

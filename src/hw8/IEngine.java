@@ -53,7 +53,7 @@ public interface IEngine {
      * 
      * @TODO - Sarah E
      */
-    public void checkPrice(IListing listing, int upperBound, int lowerBound);
+    public int checkPrice(IListing listing, int upperBound, int lowerBound);
 
     /**
      * checks whether listing's distance from epicenter falls in range of user
@@ -63,7 +63,7 @@ public interface IEngine {
      * @param listing, distance max
      * @TODO - Sarah E
      */
-    public void checkDistance(IListing listing, int maxDistance);
+    public int checkDistance(IListing listing, int maxDistance);
 
     /**
      * checks whether listing's numOfReviews falls in range of user preference
@@ -72,7 +72,7 @@ public interface IEngine {
      * @param listing, numReviews minimum
      * @TODO - Sarah E
      */
-    public void checkReviews(IListing listing, int numReviewsMin);
+    public int checkReviews(IListing listing, int numReviewsMin);
 
     /**
      * checks whether listing's property type is aligned with user preference if
@@ -81,7 +81,7 @@ public interface IEngine {
      * @param listing, property type
      * @TODO - Sarah E
      */
-    public void checkPropertyType(IListing listing, String propertyType);
+    public int checkPropertyType(IListing listing, String propertyType);
 
     /**
      * checks whether listing's room type is aligned with user preference if
@@ -90,7 +90,7 @@ public interface IEngine {
      * @param listing, roomType
      * @TODO - Sarah E
      */
-    public void checkRoomType(IListing listing, String roomType);
+    public int checkRoomType(IListing listing, String roomType);
 
     /**
      * checks whether listing's accommodates num is aligned with user preference
@@ -99,7 +99,7 @@ public interface IEngine {
      * @param listing, accommodates num
      * @TODO - Sarah E
      */
-    public void checkAccommodates(IListing listing, int accommodates);
+    public int checkAccommodates(IListing listing, int accommodates);
 
     /*
      * outputs list of property types
