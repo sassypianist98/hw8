@@ -20,13 +20,6 @@ public class Listing implements IListing {
     double distance;
 
     
-    boolean priceCheck;
-    boolean distanceCheck;
-    boolean propertyTypeCheck;
-    boolean roomTypeCheck;
-    boolean reviewsCheck;
-    boolean accommodatesCheck;
-    
     @Override
     public int compareTo(IListing o) {
         // TODO Auto-generated method stub
@@ -60,54 +53,7 @@ public class Listing implements IListing {
     }
 
     
-    public boolean isPriceCheck () {
-        return priceCheck;
-    }
-
-    public void setPriceCheck (boolean priceCheck) {
-        this.priceCheck = priceCheck;
-    }
-
-    public boolean isDistanceCheck () {
-        return distanceCheck;
-    }
-
-    public void setDistanceCheck (boolean distanceCheck) {
-        this.distanceCheck = distanceCheck;
-    }
-
-    public boolean isPropertyTypeCheck () {
-        return propertyTypeCheck;
-    }
-
-    public void setPropertyTypeCheck (boolean propertyTypeCheck) {
-        this.propertyTypeCheck = propertyTypeCheck;
-    }
-
-    public boolean isRoomTypeCheck () {
-        return roomTypeCheck;
-    }
-
-    public void setRoomTypeCheck (boolean roomTypeCheck) {
-        this.roomTypeCheck = roomTypeCheck;
-    }
-
-    public boolean isReviewsCheck () {
-        return reviewsCheck;
-    }
-
-    public void setReviewsCheck (boolean reviewsCheck) {
-        this.reviewsCheck = reviewsCheck;
-    }
-
-    public boolean isAccommodatesCheck () {
-        return accommodatesCheck;
-    }
-
-    public void setAccommodatesCheck (boolean accommodatesCheck) {
-        this.accommodatesCheck = accommodatesCheck;
-    }
-
+   
 
     
     public double getDistance() {
