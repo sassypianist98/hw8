@@ -9,6 +9,7 @@ public class Engine implements IEngine {
     double maxDistance;
     IListing root;
     Collection<IListing> allListings;
+    Collection<IListing> outputList;
     // TODO - add stuff about graphs
 
     @Override
@@ -19,7 +20,7 @@ public class Engine implements IEngine {
 
     @Override
     public Collection<IListing> outputListings(Collection<IListing> listings, double minScore) {
-        List<IListing> outputList = new ArrayList<IListing>();
+        outputList = new ArrayList<IListing>();
         
         for(IListing listing : listings) {
             
@@ -32,7 +33,7 @@ public class Engine implements IEngine {
 
     @Override
     public void printListings(Collection<IListing> listings) {
-        // TODO Auto-generated method stub
+        System.out.println(outputList);
 
     }
 
