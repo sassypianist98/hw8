@@ -13,52 +13,50 @@ import java.util.TreeSet;
 
 public class Engine implements IEngine {
 
-
     private ArrayList<IListing> outputList;
-    private double maxDistance;
-    private IListing root;
-    private Collection<IListing> allListings;
-    // TODO - add stuff about graphs
+    private List<IListing> allListings;
 
     @Override
     public Collection<IListing> getListings(String fileName) {
         List<IListing> listings = new ArrayList<>();
-        
+
         try {
             // add new key and empty list to the map
             BufferedReader r = new BufferedReader(new FileReader(fileName));
 
             String line = r.readLine();
-            
+
             // get all sequences in the current file
+            int count = 0;
             while ((line = r.readLine()) != null) {
 
                 System.out.println(line);
                 String[] details = line.split(",");
-                
+
                 System.out.println(details.length);
-                
+
                 IListing listing = new Listing();
-                ((Listing) listing).setListing(details[0]);
+                ((Listing) listing).setListingName(details[0]);
                 ((Listing) listing).setLat(Double.parseDouble(details[1]));
-                ((Listing) listing).setLong(Double.parseDouble(details[2]));
+                ((Listing) listing).setLon(Double.parseDouble(details[2]));
                 ((Listing) listing).setPropertyType(details[3]);
                 ((Listing) listing).setRoomType(details[4]);
                 ((Listing) listing).setAccommodates(Integer.parseInt(details[5]));
-                ((Listing) listing).setPrice(Double.parseDouble(details[6]
-                        .replaceAll("[^\\d.]", "")));
+                ((Listing) listing)
+                        .setPrice(Double.parseDouble(details[6].replaceAll("[^\\d.]", "")));
                 ((Listing) listing).setNumReviews(Integer.parseInt(details[7]));
-                
+                ((Listing) listing).setId(count++);
                 listings.add(listing);
             }
-            
+
             r.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
+        allListings = listings;
         return listings;
     }
 
@@ -83,82 +81,28 @@ public class Engine implements IEngine {
     }
 
     @Override
-    public int checkPrice(IListing listing, int upperBound, int lowerBound) {
-        if ((((Listing) listing).getPrice() > lowerBound)
-                && (((Listing) listing).getPrice() < upperBound)) {
-            return 1;
-        }
-        return 0;
-    }
-
-    @Override
-    public int checkDistance(IListing listing, int maxDistance) {
-        if (((Listing) listing).getDistance() <= maxDistance) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
-    public int checkReviews(IListing listing, int numReviewsMin) {
-        if (((Listing) listing).getNumReviews() >= numReviewsMin) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
-    public int checkPropertyType(IListing listing, String propertyType) {
-        if (((Listing) listing).getPropertyType().equals(propertyType)) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
-    public int checkRoomType(IListing listing, String roomType) {
-        if (((Listing) listing).getRoomType().equals(roomType)) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
-    public int checkAccommodates(IListing listing, int accommodates) {
-        if (((Listing) listing).getAccommodates() >= accommodates) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
     public Collection<String> getPropertyType(Collection<IListing> listings) {
         Set<String> propertyTypes = new TreeSet<>();
-        
+
         for (IListing listing : listings) {
-            if (!propertyTypes.contains(((Listing) listing).retPropertyType())) {
-                propertyTypes.add(((Listing) listing).retPropertyType());
+            if (!propertyTypes.contains(((Listing) listing).getPropertyType())) {
+                propertyTypes.add(((Listing) listing).getPropertyType());
             }
         }
-        
+
         return propertyTypes;
     }
 
     @Override
     public Collection<String> getRoomType(Collection<IListing> listings) {
         Set<String> roomTypes = new TreeSet<>();
-        
+
         for (IListing listing : listings) {
-            if (!roomTypes.contains(((Listing) listing).retRoomType())) {
-                roomTypes.add(((Listing) listing).retRoomType());
+            if (!roomTypes.contains(((Listing) listing).getRoomType())) {
+                roomTypes.add(((Listing) listing).getRoomType());
             }
         }
-        
+
         return roomTypes;
     }
 
@@ -188,15 +132,43 @@ public class Engine implements IEngine {
     }
 
     @Override
-    public Graph makeClique(Collection<IListing> allListings, IListing listing,
-            double maxDistance) {
-        return null;
+    public Graph makeGraph(Collection<IListing> allListings) {
+        Graph gComp = new GraphL();
+        gComp.init(allListings.size());
 
-        // traverse the Collection
+        for (int i = 0; i < allListings.size(); i++) {
+            for (int j = 0; j < allListings.size(); j++) {
 
-        // if the distance bw listing and current one is <= maxDistance then
-        // add an edge - construct a new graph
+                int v = ((Listing) ((ArrayList) allListings).get(i)).getId();
+                int w = ((Listing) ((ArrayList) allListings).get(j)).getId();
 
+                if (v != w) {
+                    gComp.addEdge(v, w, 1);
+                    gComp.addEdge(w, v, 1);
+                }
+            }
+        }
+
+        return gComp;
+    }
+
+    @Override
+    public Graph makeClique(IListing root, double maxDistance) {
+        Graph gComp = makeGraph(allListings);
+        int rootId = ((Listing) root).getId();
+
+        // do bfs to delete edges and compute within the radius
+        for (int i = 0; i < gComp.nodeCount(); i++) {
+            if (rootId != i) {
+
+                if (computeDistance(root,
+                        ((Listing) ((ArrayList) allListings).get(i))) > maxDistance) {
+                    gComp.removeEdge(rootId, i);
+                    gComp.removeEdge(i, rootId);
+                }
+            }
+        }
+        return gComp;
     }
 
 }
