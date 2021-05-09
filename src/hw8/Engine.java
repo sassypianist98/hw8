@@ -2,6 +2,7 @@ package hw8;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Engine implements IEngine {
@@ -9,7 +10,7 @@ public class Engine implements IEngine {
     double maxDistance;
     IListing root;
     Collection<IListing> allListings;
-    Collection<IListing> outputList;
+    ArrayList<IListing> outputList;
     // TODO - add stuff about graphs
 
     @Override
@@ -33,6 +34,7 @@ public class Engine implements IEngine {
 
     @Override
     public void printListings(Collection<IListing> listings) {
+        Collections.sort(outputList, IListing.byDescendingOrder());
         System.out.println(outputList);
 
     }
@@ -47,47 +49,47 @@ public class Engine implements IEngine {
     }
 
     @Override
-    public void checkDistance(IListing listing, int maxDistance) {
+    public int checkDistance(IListing listing, int maxDistance) {
         if (((Listing) listing).getDistance() <= maxDistance) {
-            ((Listing) listing).setDistanceCheck(1);
+            return 1;
         } else {
-            listing.setDistanceCheck(0);
+            return 0;
         }
     }
 
     @Override
     public int checkReviews(IListing listing, int numReviewsMin) {
-        if (listing.getNumReviews() >= numReviewsMin) {
-            listing.setReviewsCheck(1);
+        if (((Listing) listing).getNumReviews() >= numReviewsMin) {
+            return 1;
         } else {
-            listing.setReviewsCheck(0);
+            return 0;
         }
     }
 
     @Override
     public int checkPropertyType(IListing listing, String propertyType) {
-        if (listing.getPropertyType().equals(propertyType)) {
-            listing.setPropertyTypeCheck(1);
+        if (((Listing) listing).getPropertyType().equals(propertyType)) {
+            return 1;
         } else {
-            listing.setPropertyTypeCheck(0);
+            return 0;
         }
     }
 
     @Override
     public int checkRoomType(IListing listing, String roomType) {
-        if (listing.getRoomType().equals(roomType)) {
-            listing.setRoomTypeCheck(1);
+        if (((Listing) listing).getRoomType().equals(roomType)) {
+            return 1;
         } else {
-            listing.setRoomTypeCheck(0);
+            return 0;
         }
     }
 
     @Override
     public int checkAccommodates(IListing listing, int accommodates) {
-        if (listing.getAccommodates() >= accommodates) {
-            listing.setAccommodatesCheck(1);
+        if (((Listing) listing).getAccommodates() >= accommodates) {
+            return 1;
         } else {
-            listing.setAccommodatesCheck(0);
+            return 0;
         }
     }
 
