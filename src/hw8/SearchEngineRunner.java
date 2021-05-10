@@ -7,8 +7,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeSet;
 
-
-
 public class SearchEngineRunner {
     private Engine e;
     private List<IListing> listings;
@@ -17,14 +15,13 @@ public class SearchEngineRunner {
     /*
      * Constructor
      */
-    
-    SearchEngineRunner(){
+
+    SearchEngineRunner() {
         e = new Engine();
         listings = (ArrayList<IListing>) e.getListings("listings.csv");
         s = new Scanner(System.in);
     }
 
-    
     /*
      * 
      */
@@ -32,16 +29,14 @@ public class SearchEngineRunner {
         suggestionRunner();
         System.out.println("Do you want to see nearby listings? Y/N");
         String answer = s.next();
-        if(answer.equals("Y")) {
+        if (answer.equals("Y")) {
             radiusRunner();
         }
-        
+
         else {
             System.out.println("Thank you for searching");
             System.exit(0);
         }
-
-
 
     }
 
@@ -50,16 +45,25 @@ public class SearchEngineRunner {
      */
 
     public void radiusRunner() {
+        // make graph of all listings
         Graph g = e.makeGraph(listings);
+
         System.out.println("Enter the ID of the listing you wish to search around: ");
         int listingID = s.nextInt();
-        
-        System.out.println("Please enter the maximum radius in miles: ");
-        
-        double maxDistance = s.nextDouble();
-        e.makeClique(listings.get(listingID), maxDistance);
-    }
 
+        System.out.println("Please enter the maximum radius in miles: ");
+        double maxDistance = s.nextDouble();
+
+        ArrayList<IListing> radiusList = e.makeClique(listings.get(listingID), maxDistance);
+
+        for (IListing i : radiusList) {
+            Listing curr = (Listing) i;
+            System.out.println(String.format("%-20d %-20s %-20f %-20s %-20s %-20d %-20d %f",
+                    curr.getId(), curr.getListingName(), curr.getPrice(), curr.getPropertyType(),
+                    curr.getRoomType(), curr.getAccommodates(), curr.getNumReviews(),
+                    curr.getRadiusDist()));
+        }
+    }
 
     /*
      * Runs the suggestion method
@@ -121,7 +125,7 @@ public class SearchEngineRunner {
             minReviews = s.nextInt();
         }
 
-        // get max distance 
+        // get max distance
         System.out.println("Max distance from Fisherman's Wharf:");
         double maxDist = s.nextDouble();
         while (maxDist <= 0) {
@@ -135,10 +139,9 @@ public class SearchEngineRunner {
         // rank preferences from 1-6
         Map<String, Integer> userRank = e.userRank();
 
+        // check each listing
 
-        //check each listing
-
-        for(IListing listing : listings) {
+        for (IListing listing : listings) {
 
             listing.checkAccommodates(listing, accommodates);
             listing.checkDistance(listing, maxDist);
@@ -150,7 +153,7 @@ public class SearchEngineRunner {
             listing.computeScore(userRank);
 
         }
-        ArrayList<IListing> userList = (ArrayList <IListing>) e.outputListings(listings, topX);
+        ArrayList<IListing> userList = (ArrayList<IListing>) e.outputListings(listings, topX);
         e.printListings(userList);
 
     }

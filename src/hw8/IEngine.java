@@ -1,5 +1,6 @@
 package hw8;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -102,9 +103,8 @@ public interface IEngine {
      * @param maxDistance
      * @TODO - Sarah S
      */
-    public Graph makeClique(IListing root, double maxDistance);
+    public ArrayList<IListing> makeClique(IListing root, double maxDistance);
 
-    
     /**
      * As the user ranks each feature type (1-6), it will be stored in a map
      * associating each feature to a rank

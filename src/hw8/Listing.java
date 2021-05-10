@@ -1,9 +1,7 @@
 package hw8;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Listing implements IListing {
 
@@ -26,17 +24,12 @@ public class Listing implements IListing {
     private int roomTypeCheck;
     private int reviewsCheck;
     private int accommodatesCheck;
-
-    
-    private int radiusDist;
-
+    private double radiusDist;
 
     @Override
     public int compareTo(IListing o) {
         return this.getListingName().compareTo(((Listing) o).getListingName());
     }
-
-
 
     @Override
 
@@ -111,15 +104,14 @@ public class Listing implements IListing {
 
         return score;
     }
-    
-    
-    @ Override
-    public String toString () {
-        String listing = String.format("%-20d %-20s %-20f %-20s %-20s %-20d %-20d %f", this.id, this.listingName, 
-                this.price, this.propertyType, this.roomType, this.accommodates, this.numReviews, this.score);
+
+    @Override
+    public String toString() {
+        String listing = String.format("%-20d %-20s %-20f %-20s %-20s %-20d %-20d %f", this.id,
+                this.listingName, this.price, this.propertyType, this.roomType, this.accommodates,
+                this.numReviews, this.score);
         return listing;
     }
-    
 
     public String getPropertyType() {
         return propertyType;
@@ -197,11 +189,9 @@ public class Listing implements IListing {
         return this.distance;
     }
 
-    
     public void setDistance(double distance) {
         this.distance = distance;
     }
-
 
     public String getListingName() {
         return listingName;
@@ -219,6 +209,12 @@ public class Listing implements IListing {
         this.id = id;
     }
 
+    public double getRadiusDist() {
+        return radiusDist;
+    }
 
+    public void setRadiusDist(double radiusDist) {
+        this.radiusDist = radiusDist;
+    }
 
 }

@@ -18,13 +18,11 @@ import java.util.TreeSet;
 
 public class Engine implements IEngine {
 
-    private ArrayList<IListing> outputList;
     private List<IListing> allListings;
     private int maxAccommodates;
     private double maxPrice;
     private int maxNumReviews;
     private Listing epicenter;
-
 
     public Engine() {
         maxAccommodates = 0;
@@ -35,7 +33,6 @@ public class Engine implements IEngine {
         epicenter.setLon(IListing.LON);
     }
 
-
     public Listing getEpicenter() {
         return epicenter;
     }
@@ -44,31 +41,25 @@ public class Engine implements IEngine {
         return maxAccommodates;
     }
 
-
     public void setMaxAccommodates(int maxAccommodates) {
         this.maxAccommodates = maxAccommodates;
     }
-
 
     public double getMaxPrice() {
         return maxPrice;
     }
 
-
     public void setMaxPrice(double maxPrice) {
         this.maxPrice = maxPrice;
     }
-
 
     public int getMaxNumReviews() {
         return maxNumReviews;
     }
 
-
     public void setMaxNumReviews(int maxNumReviews) {
         this.maxNumReviews = maxNumReviews;
     }
-
 
     @Override
     public Collection<IListing> getListings(String fileName) {
@@ -93,7 +84,6 @@ public class Engine implements IEngine {
                 ((Listing) listing).setPropertyType(details[3]);
                 ((Listing) listing).setRoomType(details[4]);
 
-
                 // check max accommodates
                 Integer accommodates = Integer.parseInt(details[5]);
                 if (accommodates > maxAccommodates) {
@@ -114,9 +104,8 @@ public class Engine implements IEngine {
                     maxNumReviews = numReviews;
                 }
                 ((Listing) listing).setNumReviews(numReviews);
-                ((Listing) listing).setDistance(computeDistance(epicenter,listing));
+                ((Listing) listing).setDistance(computeDistance(epicenter, listing));
                 ((Listing) listing).setId(count++);
-
 
                 listings.add(listing);
             }
@@ -134,16 +123,16 @@ public class Engine implements IEngine {
 
     @Override
     public Collection<IListing> outputListings(Collection<IListing> listings, int topX) {
-        Collections.sort((ArrayList)listings, IListing.byDescendingOrder());
+        Collections.sort((ArrayList) listings, IListing.byDescendingOrder());
 
-        if(listings.size()<topX) {
+        if (listings.size() < topX) {
             return listings;
         }
 
         List<IListing> outputList = new ArrayList<IListing>();
 
-        for(int i=0; i<topX; i++) {
-            outputList.add((IListing) ((ArrayList)listings).get(i));
+        for (int i = 0; i < topX; i++) {
+            outputList.add((IListing) ((ArrayList) listings).get(i));
         }
         return outputList;
     }
@@ -151,12 +140,10 @@ public class Engine implements IEngine {
     @Override
     public void printListings(Collection<IListing> listings) {
 
-
-        for(int i=0; i<listings.size(); i++) {
-            System.out.println(((ArrayList)listings).get(i).toString());
+        for (int i = 0; i < listings.size(); i++) {
+            System.out.println(((ArrayList) listings).get(i).toString());
         }
     }
-    
 
     @Override
     public Collection<String> getPropertyType(Collection<IListing> listings) {
@@ -242,13 +229,12 @@ public class Engine implements IEngine {
     }
 
     @Override
-    public Graph makeClique(IListing root, double maxDistance) {
+    public ArrayList<IListing> makeClique(IListing root, double maxDistance) {
         Graph gComp = makeGraph(allListings);
         int rootId = ((Listing) root).getId();
 
         // do bfs to delete edges and compute within the radius
         for (int i : getNeighbors(gComp, rootId)) {
-
 
             if (computeDistance(root,
                     ((Listing) ((ArrayList<IListing>) allListings).get(i))) > maxDistance) {
@@ -256,18 +242,20 @@ public class Engine implements IEngine {
                 gComp.removeEdge(i, rootId);
             }
         }
-        
-        ArrayList<IListing> list = new ArrayList<>();
-        
-        for(int i : getNeighbors(gComp, rootId)) {
-            
-//            list.add(i);
-            
+
+        ArrayList<IListing> radiusList = new ArrayList<>();
+
+        for (int i : getNeighbors(gComp, rootId)) {
+
+            // compute radius distance bw root and neighbor
+            ((Listing) allListings.get(i))
+                    .setRadiusDist(computeDistance(root, (Listing) allListings.get(i)));
+
+            // add all neighbors to arraylist
+            radiusList.add(allListings.get(i));
         }
-        return gComp;
+        return radiusList;
     }
-
-
 
     @Override
     public Map<String, Integer> userRank() {
@@ -284,11 +272,10 @@ public class Engine implements IEngine {
 
             int rank = s.nextInt();
 
-            while(rankingMap.containsValue(rank) || (rank<1) || (rank>6)) {
-                if(rankingMap.containsValue(rank)) {
+            while (rankingMap.containsValue(rank) || (rank < 1) || (rank > 6)) {
+                if (rankingMap.containsValue(rank)) {
                     System.out.println("You've already used this rank for another feature");
-                }
-                else {
+                } else {
                     System.out.println("Invalid Rank");
                 }
                 rankingMap.put(entry.getKey(), rank);
@@ -298,4 +285,3 @@ public class Engine implements IEngine {
 
     }
 }
-
