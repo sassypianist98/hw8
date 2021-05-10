@@ -8,8 +8,10 @@ import java.util.Scanner;
 public class Listing implements IListing {
 
     // instance vars
+    private int id;
     private String propertyType;
     private String roomType;
+    private String listingName;
     private double price;
     private int accommodates;
     private double lat;
@@ -18,46 +20,98 @@ public class Listing implements IListing {
     private Collection<IListing> clique;
     private double score;
     private double distance;
+    private int priceCheck;
+    private int distanceCheck;
+    private int propertyTypeCheck;
+    private int roomTypeCheck;
+    private int reviewsCheck;
+    private int accommodatesCheck;
     
+    private int radiusDist;
+
     @Override
     public int compareTo(IListing o) {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.getListingName().compareTo(((Listing) o).getListingName());
     }
 
+
+
     @Override
-    public Map<String, Integer> userRank() {
-        Map<String, Integer> rankingMap = new HashMap<String, Integer>();
-        Scanner s = new Scanner(System.in);
-        rankingMap.put("Price", null);
-        rankingMap.put("Accommodates", null);
-        rankingMap.put("Property Type", null);
-        rankingMap.put("Room Type", null);
-        rankingMap.put("Number of Reviews", null);
-        
-        for(Map.Entry <String, Integer> entry : rankingMap.entrySet() ) {
-            System.out.println("Enter ranking (1-6) for: " + entry.getKey());
-            
-            int rank  = s.nextInt();
-            rankingMap.put(entry.getKey(), rank);
+    public void checkPrice(IListing listing, double upperBound, double lowerBound) {
+        if ((((Listing) listing).getPrice() > lowerBound)
+                && (((Listing) listing).getPrice() < upperBound)) {
+            priceCheck = 1;
         }
-        
-        return rankingMap;
+        priceCheck = 0;
     }
 
     @Override
-    public double computeScore(Map<String, Double> userRank) {
-        double priceScore = userRank.get("Price") * checkPrice();
-        double distScore = userRank.get("Distance") * checkDistance();
-        double reviewScore = userRank.get("Number of Reviews") * checkReviews();
-        double accScore = userRank.get("Accommodates") * checkAccommodates();
-        double roomScore = userRank.get("Room Type") * checkRoomType();
-        double propertyScore = userRank.get("Property Type") * checkPropertyType();
+    public void checkDistance(IListing listing, double maxDistance) {
+        if (((Listing) listing).getDistance() <= maxDistance) {
+            distanceCheck = 1;
+        } else {
+            distanceCheck = 0;
+        }
+    }
+
+    @Override
+    public void checkReviews(IListing listing, int numReviewsMin) {
+        if (((Listing) listing).getNumReviews() >= numReviewsMin) {
+            reviewsCheck = 1;
+        } else {
+            reviewsCheck = 0;
+        }
+    }
+
+    @Override
+    public void checkPropertyType(IListing listing, String propertyType) {
+        if (((Listing) listing).getPropertyType().equals(propertyType)) {
+            propertyTypeCheck = 1;
+        } else {
+            propertyTypeCheck = 0;
+        }
+    }
+
+    @Override
+    public void checkRoomType(IListing listing, String roomType) {
+        if (((Listing) listing).getRoomType().equals(roomType)) {
+            roomTypeCheck = 1;
+        } else {
+            roomTypeCheck = 0;
+        }
+    }
+
+    @Override
+    public void checkAccommodates(IListing listing, int accommodates) {
+        if (((Listing) listing).getAccommodates() >= accommodates) {
+            accommodatesCheck = 1;
+        } else {
+            accommodatesCheck = 0;
+        }
+    }
+
+    @Override
+    public double computeScore(Map<String, Integer> userRank) {
+        double priceScore = userRank.get("Price") * priceCheck;
+        double distScore = userRank.get("Distance") * distanceCheck;
+        double reviewScore = userRank.get("Number of Reviews") * reviewsCheck;
+        double accScore = userRank.get("Accommodates") * accommodatesCheck;
+        double roomScore = userRank.get("Room Type") * roomTypeCheck;
+        double propertyScore = userRank.get("Property Type") * propertyTypeCheck;
 
         score = priceScore + distScore + reviewScore + accScore + roomScore + propertyScore;
 
         return score;
     }
+    
+    
+    @ Override
+    public String toString () {
+        String listing = String.format("%-20d %-20s %-20f %-20s %-20s %-20d %-20d %f", this.id, this.listingName, 
+                this.price, this.propertyType, this.roomType, this.accommodates, this.numReviews, this.score);
+        return listing;
+    }
+    
 
     public String getPropertyType() {
         return propertyType;
@@ -131,13 +185,28 @@ public class Listing implements IListing {
         this.score = score;
     }
 
-    
-   
-
-    
     public double getDistance() {
         return this.distance;
     }
-   
+    
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public String getListingName() {
+        return listingName;
+    }
+
+    public void setListingName(String listingName) {
+        this.listingName = listingName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
 }

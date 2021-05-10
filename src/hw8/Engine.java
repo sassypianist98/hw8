@@ -1,109 +1,179 @@
 package hw8;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Engine implements IEngine {
 
-
     private ArrayList<IListing> outputList;
-    private double maxDistance;
-    private IListing root;
-    private Collection<IListing> allListings;
-    // TODO - add stuff about graphs
+    private List<IListing> allListings;
+    private int maxAccommodates;
+    private double maxPrice;
+    private int maxNumReviews;
+    private Listing epicenter;
+
+    public Engine() {
+        maxAccommodates = 0;
+        maxPrice = 0;
+        maxNumReviews = 0;
+        epicenter = new Listing();
+        epicenter.setLat(IListing.LAT);
+        epicenter.setLon(IListing.LON);
+    }
+
+    public Listing getEpicenter() {
+        return epicenter;
+    }
+
+    public int getMaxAccommodates() {
+        return maxAccommodates;
+    }
+
+
+    public void setMaxAccommodates(int maxAccommodates) {
+        this.maxAccommodates = maxAccommodates;
+    }
+
+
+    public double getMaxPrice() {
+        return maxPrice;
+    }
+
+
+    public void setMaxPrice(double maxPrice) {
+        this.maxPrice = maxPrice;
+    }
+
+
+    public int getMaxNumReviews() {
+        return maxNumReviews;
+    }
+
+
+    public void setMaxNumReviews(int maxNumReviews) {
+        this.maxNumReviews = maxNumReviews;
+    }
+
 
     @Override
     public Collection<IListing> getListings(String fileName) {
-        // TODO Auto-generated method stub
-        return null;
+        List<IListing> listings = new ArrayList<>();
+
+        try {
+            // add new key and empty list to the map
+            BufferedReader r = new BufferedReader(new FileReader(fileName));
+
+            String line = r.readLine();
+
+            // get all sequences in the current file
+            int count = 0;
+            while ((line = r.readLine()) != null) {
+
+                String[] details = line.split(",");
+
+                IListing listing = new Listing();
+                ((Listing) listing).setListingName(details[0]);
+                ((Listing) listing).setLat(Double.parseDouble(details[1]));
+                ((Listing) listing).setLon(Double.parseDouble(details[2]));
+                ((Listing) listing).setPropertyType(details[3]);
+                ((Listing) listing).setRoomType(details[4]);
+
+                // check max accommodates
+                Integer accommodates = Integer.parseInt(details[5]);
+                if (accommodates > maxAccommodates) {
+                    maxAccommodates = accommodates;
+                }
+                ((Listing) listing).setAccommodates(accommodates);
+
+                // check max price
+                Double price = Double.parseDouble(details[6].replaceAll("[^\\d.]", ""));
+                if (price > maxPrice) {
+                    maxPrice = price;
+                }
+                ((Listing) listing).setPrice(price);
+
+                // check max num of reviews
+                Integer numReviews = Integer.parseInt(details[7]);
+                if (numReviews > maxNumReviews) {
+                    maxNumReviews = numReviews;
+                }
+                ((Listing) listing).setNumReviews(numReviews);
+                ((Listing) listing).setDistance(computeDistance(epicenter,listing));
+                ((Listing) listing).setId(count++);
+
+                listings.add(listing);
+            }
+
+            r.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        allListings = listings;
+        return listings;
     }
 
     @Override
-    public Collection<IListing> outputListings(Collection<IListing> listings, double minScore) {
-        outputList = new ArrayList<IListing>();
+    public Collection<IListing> outputListings(Collection<IListing> listings, int topX) {
+        Collections.sort((ArrayList)listings, IListing.byDescendingOrder());
 
-        for (IListing listing : listings) {
+        if(listings.size()<topX) {
+            return listings;
+        }
 
-            if (((Listing) listing).getScore() >= minScore) {
-                outputList.add(listing);
-            }
+        List<IListing> outputList = new ArrayList<IListing>();
+
+        for(int i=0; i<topX; i++) {
+            outputList.add((IListing) ((ArrayList)listings).get(i));
         }
         return outputList;
     }
 
     @Override
     public void printListings(Collection<IListing> listings) {
-        Collections.sort(outputList, IListing.byDescendingOrder());
-        System.out.println(outputList);
 
-    }
-
-    @Override
-    public int checkPrice(IListing listing, int upperBound, int lowerBound) {
-        if ((((Listing) listing).getPrice() > lowerBound)
-                && (((Listing) listing).getPrice() < upperBound)) {
-            return 1;
-        }
-        return 0;
-    }
-
-    @Override
-    public int checkDistance(IListing listing, int maxDistance) {
-        if (((Listing) listing).getDistance() <= maxDistance) {
-            return 1;
-        } else {
-            return 0;
+        for(int i=0; i<listings.size(); i++) {
+            System.out.println(((ArrayList)listings).get(i).toString());
         }
     }
-
-    @Override
-    public int checkReviews(IListing listing, int numReviewsMin) {
-        if (((Listing) listing).getNumReviews() >= numReviewsMin) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
-    public int checkPropertyType(IListing listing, String propertyType) {
-        if (((Listing) listing).getPropertyType().equals(propertyType)) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
-    public int checkRoomType(IListing listing, String roomType) {
-        if (((Listing) listing).getRoomType().equals(roomType)) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
-    public int checkAccommodates(IListing listing, int accommodates) {
-        if (((Listing) listing).getAccommodates() >= accommodates) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
+    
     @Override
     public Collection<String> getPropertyType(Collection<IListing> listings) {
-        // TODO Auto-generated method stub
-        return null;
+        Set<String> propertyTypes = new TreeSet<>();
+
+        for (IListing listing : listings) {
+            if (!propertyTypes.contains(((Listing) listing).getPropertyType())) {
+                propertyTypes.add(((Listing) listing).getPropertyType());
+            }
+        }
+
+        return propertyTypes;
     }
 
     @Override
     public Collection<String> getRoomType(Collection<IListing> listings) {
-        // TODO Auto-generated method stub
-        return null;
+        Set<String> roomTypes = new TreeSet<>();
+
+        for (IListing listing : listings) {
+            if (!roomTypes.contains(((Listing) listing).getRoomType())) {
+                roomTypes.add(((Listing) listing).getRoomType());
+            }
+        }
+
+        return roomTypes;
     }
 
     /**
@@ -131,16 +201,91 @@ public class Engine implements IEngine {
         return dist;
     }
 
+    /**
+     * Return the neighbors ids of a specific node
+     * 
+     * @param id the id of the page
+     * @return the array of neighbor(s)
+     */
     @Override
-    public Graph makeClique(Collection<IListing> allListings, IListing listing,
-            double maxDistance) {
-        return null;
-
-        // traverse the Collection
-
-        // if the distance bw listing and current one is <= maxDistance then
-        // add an edge - construct a new graph
-
+    public int[] getNeighbors(Graph g, int id) {
+        return g.neighbors(id);
     }
 
+    @Override
+    public Graph makeGraph(Collection<IListing> allListings) {
+        Graph gComp = new GraphL();
+        gComp.init(allListings.size());
+
+        for (int i = 0; i < allListings.size(); i++) {
+            for (int j = 0; j < allListings.size(); j++) {
+
+                int v = ((Listing) ((ArrayList<IListing>) allListings).get(i)).getId();
+                int w = ((Listing) ((ArrayList<IListing>) allListings).get(j)).getId();
+
+                if (v != w) {
+                    gComp.addEdge(v, w, 1);
+                    gComp.addEdge(w, v, 1);
+                }
+            }
+        }
+
+        return gComp;
+    }
+
+    @Override
+    public Graph makeClique(IListing root, double maxDistance) {
+        Graph gComp = makeGraph(allListings);
+        int rootId = ((Listing) root).getId();
+
+        // do bfs to delete edges and compute within the radius
+        for (int i : getNeighbors(gComp, rootId)) {
+
+            if (computeDistance(root,
+                    ((Listing) ((ArrayList<IListing>) allListings).get(i))) > maxDistance) {
+                gComp.removeEdge(rootId, i);
+                gComp.removeEdge(i, rootId);
+            }
+        }
+        
+        ArrayList<IListing> list = new ArrayList<>();
+        
+        for(int i : getNeighbors(gComp, rootId)) {
+            
+            list.add(i);
+            
+        }
+        return gComp;
+    }
+
+
+
+    @Override
+    public Map<String, Integer> userRank() {
+        Map<String, Integer> rankingMap = new HashMap<String, Integer>();
+        Scanner s = new Scanner(System.in);
+        rankingMap.put("Price", null);
+        rankingMap.put("Accommodates", null);
+        rankingMap.put("Property Type", null);
+        rankingMap.put("Room Type", null);
+        rankingMap.put("Number of Reviews", null);
+
+        for (Map.Entry<String, Integer> entry : rankingMap.entrySet()) {
+            System.out.println("Enter ranking (1-6) for: " + entry.getKey());
+
+            int rank = s.nextInt();
+
+            while(rankingMap.containsValue(rank) || (rank<1) || (rank>6)) {
+                if(rankingMap.containsValue(rank)) {
+                    System.out.println("You've already used this rank for another feature");
+                }
+                else {
+                    System.out.println("Invalid Rank");
+                }
+                rankingMap.put(entry.getKey(), rank);
+            }
+        }
+        return rankingMap;
+    }
 }
+

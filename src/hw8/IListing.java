@@ -1,6 +1,5 @@
 package hw8;
 
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +16,7 @@ public interface IListing extends Comparable<IListing> {
      * This map stores the percentage breakdown applied to each rank (1-6, where
      * 1 is the highest priority)
      */
-    public static final HashMap<Integer, Double> RANK = new HashMap<Integer, Double>() {
+    public static final HashMap<Integer, Double> RANK = new HashMap<>() {
         {
             put(1, 0.04);
             put(2, 0.09);
@@ -27,6 +26,9 @@ public interface IListing extends Comparable<IListing> {
             put(6, 0.3);
         }
     };
+    
+    public static final double LAT = 37.80880860279576;
+    public static final double LON = -122.40981027333432;
 
     /**
      * Sorts the listings in descending order by final score (a percentage from
@@ -37,19 +39,85 @@ public interface IListing extends Comparable<IListing> {
      * @TODO - Tiffany
      */
     public static Comparator<IListing> byDescendingOrder() {
-        return null;
+        // comparator terms by weight (descending)
+        Comparator<IListing> comp = new Comparator<IListing>() {
+            @Override
+            public int compare(IListing listing1, IListing listing2) {
+                double score1 = ((Listing) listing1).getScore();
+                double score2 = ((Listing) listing2).getScore();
+
+                if (((Double) score1).compareTo(score2) == 0) { // lexicographic
+                                                                // if same score
+                    return ((Listing) listing1).getListingName()
+                            .compareTo(((Listing) listing2).getListingName());
+                }
+
+                return ((Double) score1).compareTo(score2);
+            }
+        };
+
+        return comp;
     }
 
     /**
-     * As the user ranks each feature type (1-6), it will be stored in a map
-     * associating each feature to a rank
+     * checks whether listing's price falls in the range of user preference if
+     * it does fall in the range, set priceCheck of listing = 1 otherwise, set
+     * priceCheck of listing = 0
      * 
-     * @param user input scores (1-6)
-     * @return map of features to ranking of importance
+     * @param listing, upperbound of price preference, lowerbound of price
+     *                 preference
      * 
      * @TODO - Sarah E
      */
-    public Map<String, Integer> userRank();
+    public void checkPrice(IListing listing, double upperBound, double lowerBound);
+
+    /**
+     * checks whether listing's distance from epicenter falls in range of user
+     * preference if yes, set distanceCheck of listing =1 if no, set
+     * distanceCheck of listing =0
+     * 
+     * @param listing, distance max
+     * @TODO - Sarah E
+     */
+    public void checkDistance(IListing listing, double maxDistance);
+
+    /**
+     * checks whether listing's numOfReviews falls in range of user preference
+     * if yes, set reviewsCheck = 1 if no, set reviewsCheck = 0
+     * 
+     * @param listing, numReviews minimum
+     * @TODO - Sarah E
+     */
+    public void checkReviews(IListing listing, int numReviewsMin);
+
+    /**
+     * checks whether listing's property type is aligned with user preference if
+     * yes, set propertyTypeCheck =1 if no, set propertyTypeCheck =0
+     * 
+     * @param listing, property type
+     * @TODO - Sarah E
+     */
+    public void checkPropertyType(IListing listing, String propertyType);
+
+    /**
+     * checks whether listing's room type is aligned with user preference if
+     * yes, set roomTypeCheck =1 if no, set roomTypeCheck =0
+     * 
+     * @param listing, roomType
+     * @TODO - Sarah E
+     */
+    public void checkRoomType(IListing listing, String roomType);
+
+    /**
+     * checks whether listing's accommodates num is aligned with user preference
+     * if yes, set accommodatesCheck =1 if no, set accommodatesCheck =0
+     * 
+     * @param listing, accommodates num
+     * @TODO - Sarah E
+     */
+    public void checkAccommodates(IListing listing, int accommodates);
+
+
 
     /**
      * This method calculates the "final score" associated with a listing based
@@ -61,9 +129,6 @@ public interface IListing extends Comparable<IListing> {
      * 
      * @TODO - Sarah S
      */
-    public double computeScore(Map<String, Double> userRank);
-   
-    
+    public double computeScore(Map<String, Integer> userRank);
 
-    
 };
