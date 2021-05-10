@@ -103,6 +103,7 @@ public interface IEngine {
      * @TODO - Sarah S
      */
     public Graph makeClique(IListing root, double maxDistance);
+<<<<<<< HEAD
     
     
     /**
@@ -115,4 +116,7 @@ public interface IEngine {
      * @TODO - Sarah E
      */
     public Map<String, Integer> userRank();
+=======
+
+>>>>>>> branch 'main' of https://github.com/sassypianist98/hw8.git
 }

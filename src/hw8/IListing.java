@@ -63,6 +63,66 @@ public interface IListing extends Comparable<IListing> {
      * checks whether listing's price falls in the range of user preference if
      * it does fall in the range, set priceCheck of listing = 1 otherwise, set
      * priceCheck of listing = 0
+<<<<<<< HEAD
+=======
+     * 
+     * @param listing, upperbound of price preference, lowerbound of price
+     *                 preference
+     * 
+     * @TODO - Sarah E
+     */
+    public void checkPrice(IListing listing, int upperBound, int lowerBound);
+
+    /**
+     * checks whether listing's distance from epicenter falls in range of user
+     * preference if yes, set distanceCheck of listing =1 if no, set
+     * distanceCheck of listing =0
+     * 
+     * @param listing, distance max
+     * @TODO - Sarah E
+     */
+    public void checkDistance(IListing listing, int maxDistance);
+
+    /**
+     * checks whether listing's numOfReviews falls in range of user preference
+     * if yes, set reviewsCheck = 1 if no, set reviewsCheck = 0
+     * 
+     * @param listing, numReviews minimum
+     * @TODO - Sarah E
+     */
+    public void checkReviews(IListing listing, int numReviewsMin);
+
+    /**
+     * checks whether listing's property type is aligned with user preference if
+     * yes, set propertyTypeCheck =1 if no, set propertyTypeCheck =0
+     * 
+     * @param listing, property type
+     * @TODO - Sarah E
+     */
+    public void checkPropertyType(IListing listing, String propertyType);
+
+    /**
+     * checks whether listing's room type is aligned with user preference if
+     * yes, set roomTypeCheck =1 if no, set roomTypeCheck =0
+     * 
+     * @param listing, roomType
+     * @TODO - Sarah E
+     */
+    public void checkRoomType(IListing listing, String roomType);
+
+    /**
+     * checks whether listing's accommodates num is aligned with user preference
+     * if yes, set accommodatesCheck =1 if no, set accommodatesCheck =0
+     * 
+     * @param listing, accommodates num
+     * @TODO - Sarah E
+     */
+    public void checkAccommodates(IListing listing, int accommodates);
+
+    /**
+     * As the user ranks each feature type (1-6), it will be stored in a map
+     * associating each feature to a rank
+>>>>>>> branch 'main' of https://github.com/sassypianist98/hw8.git
      * 
      * @param listing, upperbound of price preference, lowerbound of price
      *                 preference
@@ -129,6 +189,10 @@ public interface IListing extends Comparable<IListing> {
      * 
      * @TODO - Sarah S
      */
+<<<<<<< HEAD
     public double computeScore(Map<String, Integer> userRank);
+=======
+    public double computeScore(Map<String, Double> userRank);
+>>>>>>> branch 'main' of https://github.com/sassypianist98/hw8.git
 
 };
