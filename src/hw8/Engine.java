@@ -194,6 +194,17 @@ public class Engine implements IEngine {
         return dist;
     }
 
+    /**
+     * Return the neighbors ids of a specific node
+     * 
+     * @param id the id of the page
+     * @return the array of neighbor(s)
+     */
+    @Override
+    public int[] getNeighbors(Graph g, int id) {
+        return g.neighbors(id);
+    }
+
     @Override
     public Graph makeGraph(Collection<IListing> allListings) {
         Graph gComp = new GraphL();
@@ -221,15 +232,13 @@ public class Engine implements IEngine {
         int rootId = ((Listing) root).getId();
 
         // do bfs to delete edges and compute within the radius
-        for (int i = 0; i < gComp.nodeCount(); i++) {
-            if (rootId != i) {
+        for (int i : getNeighbors(gComp, rootId)) {
 
                 if (computeDistance(root,
                         ((Listing) ((ArrayList<IListing>) allListings).get(i))) > maxDistance) {
                     gComp.removeEdge(rootId, i);
                     gComp.removeEdge(i, rootId);
                 }
-            }
         }
         return gComp;
     }

@@ -75,6 +75,14 @@ public interface IEngine {
     public double computeDistance(IListing l1, IListing l2);
 
     /**
+     * Return the neighbors ids of a specific node
+     * 
+     * @param id the id of the page
+     * @return the array of neighbor(s)
+     */
+    public int[] getNeighbors(Graph g, int id);
+
+    /**
      * make a complete Graph of n vertices from all listings
      * 
      * @param allListings
