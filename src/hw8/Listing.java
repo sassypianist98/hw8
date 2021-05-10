@@ -26,11 +26,10 @@ public class Listing implements IListing {
     private int roomTypeCheck;
     private int reviewsCheck;
     private int accommodatesCheck;
-<<<<<<< HEAD
+
     
     private int radiusDist;
-=======
->>>>>>> branch 'main' of https://github.com/sassypianist98/hw8.git
+
 
     @Override
     public int compareTo(IListing o) {
@@ -40,38 +39,20 @@ public class Listing implements IListing {
 
 
     @Override
-<<<<<<< HEAD
+
     public void checkPrice(IListing listing, double upperBound, double lowerBound) {
         if ((((Listing) listing).getPrice() > lowerBound)
                 && (((Listing) listing).getPrice() < upperBound)) {
             priceCheck = 1;
-=======
-    public Map<String, Integer> userRank() {
-        Map<String, Integer> rankingMap = new HashMap<String, Integer>();
-        Scanner s = new Scanner(System.in);
-        rankingMap.put("Price", null);
-        rankingMap.put("Accommodates", null);
-        rankingMap.put("Property Type", null);
-        rankingMap.put("Room Type", null);
-        rankingMap.put("Number of Reviews", null);
 
-        for (Map.Entry<String, Integer> entry : rankingMap.entrySet()) {
-            System.out.println("Enter ranking (1-6) for: " + entry.getKey());
-
-            int rank = s.nextInt();
-            rankingMap.put(entry.getKey(), rank);
->>>>>>> branch 'main' of https://github.com/sassypianist98/hw8.git
         }
-<<<<<<< HEAD
-        priceCheck = 0;
-=======
 
-        return rankingMap;
->>>>>>> branch 'main' of https://github.com/sassypianist98/hw8.git
+        priceCheck = 0;
+
     }
 
     @Override
-<<<<<<< HEAD
+
     public void checkDistance(IListing listing, double maxDistance) {
         if (((Listing) listing).getDistance() <= maxDistance) {
             distanceCheck = 1;
@@ -118,63 +99,7 @@ public class Listing implements IListing {
 
     @Override
     public double computeScore(Map<String, Integer> userRank) {
-=======
-    public void checkPrice(IListing listing, int upperBound, int lowerBound) {
-        if ((((Listing) listing).getPrice() > lowerBound)
-                && (((Listing) listing).getPrice() < upperBound)) {
-            priceCheck = 1;
-        }
-        priceCheck = 0;
-    }
 
-    @Override
-    public void checkDistance(IListing listing, int maxDistance) {
-        if (((Listing) listing).getDistance() <= maxDistance) {
-            distanceCheck = 1;
-        } else {
-            distanceCheck = 0;
-        }
-    }
-
-    @Override
-    public void checkReviews(IListing listing, int numReviewsMin) {
-        if (((Listing) listing).getNumReviews() >= numReviewsMin) {
-            reviewsCheck = 1;
-        } else {
-            reviewsCheck = 0;
-        }
-    }
-
-    @Override
-    public void checkPropertyType(IListing listing, String propertyType) {
-        if (((Listing) listing).getPropertyType().equals(propertyType)) {
-            propertyTypeCheck = 1;
-        } else {
-            propertyTypeCheck = 0;
-        }
-    }
-
-    @Override
-    public void checkRoomType(IListing listing, String roomType) {
-        if (((Listing) listing).getRoomType().equals(roomType)) {
-            roomTypeCheck = 1;
-        } else {
-            roomTypeCheck = 0;
-        }
-    }
-
-    @Override
-    public void checkAccommodates(IListing listing, int accommodates) {
-        if (((Listing) listing).getAccommodates() >= accommodates) {
-            accommodatesCheck = 1;
-        } else {
-            accommodatesCheck = 0;
-        }
-    }
-
-    @Override
-    public double computeScore(Map<String, Double> userRank) {
->>>>>>> branch 'main' of https://github.com/sassypianist98/hw8.git
         double priceScore = userRank.get("Price") * priceCheck;
         double distScore = userRank.get("Distance") * distanceCheck;
         double reviewScore = userRank.get("Number of Reviews") * reviewsCheck;
@@ -271,13 +196,12 @@ public class Listing implements IListing {
     public double getDistance() {
         return this.distance;
     }
-<<<<<<< HEAD
+
     
     public void setDistance(double distance) {
         this.distance = distance;
     }
-=======
->>>>>>> branch 'main' of https://github.com/sassypianist98/hw8.git
+
 
     public String getListingName() {
         return listingName;
@@ -294,5 +218,7 @@ public class Listing implements IListing {
     public void setId(int id) {
         this.id = id;
     }
+
+
 
 }

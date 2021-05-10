@@ -103,8 +103,7 @@ public interface IEngine {
      * @TODO - Sarah S
      */
     public Graph makeClique(IListing root, double maxDistance);
-<<<<<<< HEAD
-    
+
     
     /**
      * As the user ranks each feature type (1-6), it will be stored in a map
@@ -116,7 +115,5 @@ public interface IEngine {
      * @TODO - Sarah E
      */
     public Map<String, Integer> userRank();
-=======
 
->>>>>>> branch 'main' of https://github.com/sassypianist98/hw8.git
 }

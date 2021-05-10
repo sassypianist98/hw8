@@ -9,11 +9,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-<<<<<<< HEAD
+
 import java.util.Map;
 import java.util.Scanner;
-=======
->>>>>>> branch 'main' of https://github.com/sassypianist98/hw8.git
+
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -25,7 +24,7 @@ public class Engine implements IEngine {
     private double maxPrice;
     private int maxNumReviews;
     private Listing epicenter;
-<<<<<<< HEAD
+
 
     public Engine() {
         maxAccommodates = 0;
@@ -36,18 +35,7 @@ public class Engine implements IEngine {
         epicenter.setLon(IListing.LON);
     }
 
-=======
-    
-    public Engine() {
-        maxAccommodates = 0;
-        maxPrice = 0;
-        maxNumReviews = 0;
-        epicenter = new Listing();
-        epicenter.setLat(IListing.LAT);
-        epicenter.setLon(IListing.LON);
-    }
-    
->>>>>>> branch 'main' of https://github.com/sassypianist98/hw8.git
+
     public Listing getEpicenter() {
         return epicenter;
     }
@@ -104,7 +92,7 @@ public class Engine implements IEngine {
                 ((Listing) listing).setLon(Double.parseDouble(details[2]));
                 ((Listing) listing).setPropertyType(details[3]);
                 ((Listing) listing).setRoomType(details[4]);
-<<<<<<< HEAD
+
 
                 // check max accommodates
                 Integer accommodates = Integer.parseInt(details[5]);
@@ -129,32 +117,7 @@ public class Engine implements IEngine {
                 ((Listing) listing).setDistance(computeDistance(epicenter,listing));
                 ((Listing) listing).setId(count++);
 
-=======
-                
-                // check max accommodates
-                Integer accommodates = Integer.parseInt(details[5]);
-                if (accommodates > maxAccommodates) {
-                    maxAccommodates = accommodates;
-                }
-                ((Listing) listing).setAccommodates(accommodates);
-                
-                // check max price
-                Double price = Double.parseDouble(details[6].replaceAll("[^\\d.]", ""));
-                if (price > maxPrice) {
-                    maxPrice = price;
-                }
-                ((Listing) listing).setPrice(price);
-                
-                // check max num of reviews
-                Integer numReviews = Integer.parseInt(details[7]);
-                if (numReviews > maxNumReviews) {
-                    maxNumReviews = numReviews;
-                }
-                ((Listing) listing).setNumReviews(numReviews);
-                
-                ((Listing) listing).setId(count++);
-                
->>>>>>> branch 'main' of https://github.com/sassypianist98/hw8.git
+
                 listings.add(listing);
             }
 
@@ -188,16 +151,13 @@ public class Engine implements IEngine {
     @Override
     public void printListings(Collection<IListing> listings) {
 
-<<<<<<< HEAD
+
         for(int i=0; i<listings.size(); i++) {
             System.out.println(((ArrayList)listings).get(i).toString());
         }
     }
     
-=======
-    }
 
->>>>>>> branch 'main' of https://github.com/sassypianist98/hw8.git
     @Override
     public Collection<String> getPropertyType(Collection<IListing> listings) {
         Set<String> propertyTypes = new TreeSet<>();
@@ -289,7 +249,7 @@ public class Engine implements IEngine {
         // do bfs to delete edges and compute within the radius
         for (int i : getNeighbors(gComp, rootId)) {
 
-<<<<<<< HEAD
+
             if (computeDistance(root,
                     ((Listing) ((ArrayList<IListing>) allListings).get(i))) > maxDistance) {
                 gComp.removeEdge(rootId, i);
@@ -301,7 +261,7 @@ public class Engine implements IEngine {
         
         for(int i : getNeighbors(gComp, rootId)) {
             
-            list.add(i);
+//            list.add(i);
             
         }
         return gComp;
@@ -335,15 +295,7 @@ public class Engine implements IEngine {
             }
         }
         return rankingMap;
-=======
-                if (computeDistance(root,
-                        ((Listing) ((ArrayList<IListing>) allListings).get(i))) > maxDistance) {
-                    gComp.removeEdge(rootId, i);
-                    gComp.removeEdge(i, rootId);
-                }
-        }
-        return gComp;
->>>>>>> branch 'main' of https://github.com/sassypianist98/hw8.git
+
     }
 }
 
