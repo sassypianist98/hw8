@@ -15,6 +15,53 @@ public class Engine implements IEngine {
 
     private ArrayList<IListing> outputList;
     private List<IListing> allListings;
+    private int maxAccommodates;
+    private double maxPrice;
+    private int maxNumReviews;
+    private Listing epicenter;
+    
+    public Engine() {
+        maxAccommodates = 0;
+        maxPrice = 0;
+        maxNumReviews = 0;
+        epicenter = new Listing();
+        epicenter.setLat(IListing.LAT);
+        epicenter.setLon(IListing.LON);
+    }
+    
+    public Listing getEpicenter() {
+        return epicenter;
+    }
+
+    public int getMaxAccommodates() {
+        return maxAccommodates;
+    }
+
+
+    public void setMaxAccommodates(int maxAccommodates) {
+        this.maxAccommodates = maxAccommodates;
+    }
+
+
+    public double getMaxPrice() {
+        return maxPrice;
+    }
+
+
+    public void setMaxPrice(double maxPrice) {
+        this.maxPrice = maxPrice;
+    }
+
+
+    public int getMaxNumReviews() {
+        return maxNumReviews;
+    }
+
+
+    public void setMaxNumReviews(int maxNumReviews) {
+        this.maxNumReviews = maxNumReviews;
+    }
+
 
     @Override
     public Collection<IListing> getListings(String fileName) {
@@ -30,10 +77,7 @@ public class Engine implements IEngine {
             int count = 0;
             while ((line = r.readLine()) != null) {
 
-                System.out.println(line);
                 String[] details = line.split(",");
-
-                System.out.println(details.length);
 
                 IListing listing = new Listing();
                 ((Listing) listing).setListingName(details[0]);
@@ -41,11 +85,30 @@ public class Engine implements IEngine {
                 ((Listing) listing).setLon(Double.parseDouble(details[2]));
                 ((Listing) listing).setPropertyType(details[3]);
                 ((Listing) listing).setRoomType(details[4]);
-                ((Listing) listing).setAccommodates(Integer.parseInt(details[5]));
-                ((Listing) listing)
-                        .setPrice(Double.parseDouble(details[6].replaceAll("[^\\d.]", "")));
-                ((Listing) listing).setNumReviews(Integer.parseInt(details[7]));
+                
+                // check max accommodates
+                Integer accommodates = Integer.parseInt(details[5]);
+                if (accommodates > maxAccommodates) {
+                    maxAccommodates = accommodates;
+                }
+                ((Listing) listing).setAccommodates(accommodates);
+                
+                // check max price
+                Double price = Double.parseDouble(details[6].replaceAll("[^\\d.]", ""));
+                if (price > maxPrice) {
+                    maxPrice = price;
+                }
+                ((Listing) listing).setPrice(price);
+                
+                // check max num of reviews
+                Integer numReviews = Integer.parseInt(details[7]);
+                if (numReviews > maxNumReviews) {
+                    maxNumReviews = numReviews;
+                }
+                ((Listing) listing).setNumReviews(numReviews);
+                
                 ((Listing) listing).setId(count++);
+                
                 listings.add(listing);
             }
 
@@ -139,8 +202,8 @@ public class Engine implements IEngine {
         for (int i = 0; i < allListings.size(); i++) {
             for (int j = 0; j < allListings.size(); j++) {
 
-                int v = ((Listing) ((ArrayList) allListings).get(i)).getId();
-                int w = ((Listing) ((ArrayList) allListings).get(j)).getId();
+                int v = ((Listing) ((ArrayList<IListing>) allListings).get(i)).getId();
+                int w = ((Listing) ((ArrayList<IListing>) allListings).get(j)).getId();
 
                 if (v != w) {
                     gComp.addEdge(v, w, 1);
@@ -162,7 +225,7 @@ public class Engine implements IEngine {
             if (rootId != i) {
 
                 if (computeDistance(root,
-                        ((Listing) ((ArrayList) allListings).get(i))) > maxDistance) {
+                        ((Listing) ((ArrayList<IListing>) allListings).get(i))) > maxDistance) {
                     gComp.removeEdge(rootId, i);
                     gComp.removeEdge(i, rootId);
                 }
@@ -170,5 +233,4 @@ public class Engine implements IEngine {
         }
         return gComp;
     }
-
 }

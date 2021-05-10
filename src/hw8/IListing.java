@@ -1,6 +1,5 @@
 package hw8;
 
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +16,7 @@ public interface IListing extends Comparable<IListing> {
      * This map stores the percentage breakdown applied to each rank (1-6, where
      * 1 is the highest priority)
      */
-    public static final HashMap<Integer, Double> RANK = new HashMap<Integer, Double>() {
+    public static final HashMap<Integer, Double> RANK = new HashMap<>() {
         {
             put(1, 0.04);
             put(2, 0.09);
@@ -27,6 +26,9 @@ public interface IListing extends Comparable<IListing> {
             put(6, 0.3);
         }
     };
+    
+    public static final double LAT = 37.80880860279576;
+    public static final double LON = -122.40981027333432;
 
     /**
      * Sorts the listings in descending order by final score (a percentage from
