@@ -26,7 +26,7 @@ Part I uses the following themes relevant to coursework:
 
 ## Part II: Listings within a Specifed Radius
 #### 
-In Part II of our simulation, we will show users "similar" listings within a specified distance of a user-selected listing. We first create a complete graph in adjacency list representation of the top 100 listings that met criteria in Part I, and then ask the user to select a Listing ID from this list and a max distance they would be willing to travel. We then traverse the graph using Breadth First Search and compute the [Haversine Distance](https://www.movable-type.co.uk/scripts/latlong.html) between two listings based on their latitude and logitude, and remove edges between two Listings if they are further apart than the max distance. The final list of nearby listings is displayed to the user.
+In Part II of our simulation, we will show users "similar" listings within a specified distance of a user-selected listing. We first create a complete graph in adjacency list representation of the top 100 listings that met criteria in Part I, and then ask the user to select a Listing ID from this list and a max distance they would be willing to travel. We then traverse the graph using Breadth First Search and compute the [Haversine Distance](https://www.movable-type.co.uk/scripts/latlong.html) between two listings based on their latitude and longitude, and remove edges between two Listings if they are further apart than the max distance. The final list of nearby listings is displayed to the user.
 
 ### Elements of CIT 594
 #### 
