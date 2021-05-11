@@ -52,7 +52,7 @@ public interface IListing extends Comparable<IListing> {
                             .compareTo(((Listing) listing2).getListingName());
                 }
 
-                return ((Double) score1).compareTo(score2);
+                return ((Double) score2).compareTo(score1);
             }
         };
 

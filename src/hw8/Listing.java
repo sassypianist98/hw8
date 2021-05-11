@@ -100,14 +100,14 @@ public class Listing implements IListing {
         double roomScore = RANK.get(userRank.get("Room Type")) * roomTypeCheck;
         double propertyScore = RANK.get(userRank.get("Property Type")) * propertyTypeCheck;
 
-        setScore(priceScore + distScore + reviewScore + accScore + roomScore + propertyScore);
+        score = (priceScore + distScore + reviewScore + accScore + roomScore + propertyScore);
 
         return score;
     }
 
     @Override
     public String toString() {
-        String listing = String.format("%-20d %-20s %-20.2f %-20s %-20s %-20d %-20d %.2f", this.id,
+        String listing = String.format("%10d | %80s | %10.2f | %20s | %20s | %20d | %20d | %10.2f", this.id,
                 this.listingName, this.price, this.propertyType, this.roomType, this.accommodates,
                 this.numReviews, this.score);
         return listing;
@@ -216,5 +216,7 @@ public class Listing implements IListing {
     public void setRadiusDist(double radiusDist) {
         this.radiusDist = radiusDist;
     }
+    
+
 
 }

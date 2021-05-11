@@ -157,8 +157,8 @@ public class SearchEngineRunner {
         System.out.println("Now we will ask you to rank your preferences by feature.");
         Map<String, Integer> userRank = e.userRank(s);
 
+        
         // check each listing
-
         for (IListing listing : listings) {
 
             listing.checkAccommodates(listing, accommodates);
@@ -169,14 +169,22 @@ public class SearchEngineRunner {
             listing.checkRoomType(listing, userRoomType);
 
             
-            ((Listing) listing).setScore(listing.computeScore(userRank));
+            ((Listing) listing).computeScore(userRank);
             System.out.println(((Listing) listing).getScore());
+            
 
         }
         ArrayList<IListing> userList = (ArrayList<IListing>) e.outputListings(listings, topX);
 
         System.out.println();
         System.out.println("Your top " + topX + " matches are:");
+        String header = String.format("%10s | %80s | %10s | %20s | %20s | %20s | %20s | %10s", "ID",
+                "Name", "Price", "Property Type", "Room Type", "Accommodates", "Number of Reviews", "Score");
+        System.out.println(header);
+        String underscore = String.format("%10s   %80s   %10s   %20s   %20s   %20s   %20s   %10s", "--",
+                "----", "-----", "-------------", "---------", "------------", "-----------------", "-----");
+        System.out.println(underscore);
+       
         e.printListings(userList);
 
     }
