@@ -50,4 +50,4 @@ A Strategy relationship is shown in the Listing class for a Collection of ways t
 
 ## Part IV: Unit Testing
 ####
-JUnit tests are provided for each class.
+JUnit tests are provided for the Listing and Engine classes.
