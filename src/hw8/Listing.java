@@ -32,6 +32,16 @@ public class Listing implements IListing {
     private int accommodatesCheck;
     private double radiusDist;
 
+    /**
+     * empty constructor for the class
+     */
+    public Listing() {
+
+    };
+
+    /**
+     * compute the feature check values based on user input
+     */
     @Override
     public int compareTo(IListing o) {
         return this.getListingName().compareTo(((Listing) o).getListingName());
@@ -48,12 +58,12 @@ public class Listing implements IListing {
         }
 
     }
-    
+
     @Override
     public int getPriceCheckValue() {
         return priceCheck;
     }
-    
+
     @Override
     public void checkDistance(IListing listing, double maxDistance) {
         if (((Listing) listing).getDistance() <= maxDistance) {
@@ -62,7 +72,7 @@ public class Listing implements IListing {
             distanceCheck = 0;
         }
     }
-    
+
     @Override
     public int getDistanceCheckValue() {
         return distanceCheck;
@@ -75,8 +85,8 @@ public class Listing implements IListing {
         } else {
             reviewsCheck = 0;
         }
-    } 
-    
+    }
+
     @Override
     public int getReviewCheckValue() {
         return reviewsCheck;
@@ -90,7 +100,7 @@ public class Listing implements IListing {
             propertyTypeCheck = 0;
         }
     }
-    
+
     @Override
     public int getPropertyCheckValue() {
         return propertyTypeCheck;
@@ -104,7 +114,7 @@ public class Listing implements IListing {
             roomTypeCheck = 0;
         }
     }
-    
+
     @Override
     public int getRoomTypeCheckValue() {
         return roomTypeCheck;
@@ -118,7 +128,7 @@ public class Listing implements IListing {
             accommodatesCheck = 0;
         }
     }
-    
+
     @Override
     public int getAccommodatesCheckValue() {
         return accommodatesCheck;
@@ -141,14 +151,20 @@ public class Listing implements IListing {
         return score;
     }
 
+    /**
+     * create a toString output format for each Listing
+     */
     @Override
     public String toString() {
-        String listing = String.format("%10d | %80s | %10.2f | %20s | %20s | %20d | %20d | %10.2f", this.id,
-                this.listingName, this.price, this.propertyType, this.roomType, this.accommodates,
-                this.numReviews, this.score);
+        String listing = String.format("%10d | %80s | %10.2f | %20s | %20s | %20d | %20d | %10.2f",
+                this.id, this.listingName, this.price, this.propertyType, this.roomType,
+                this.accommodates, this.numReviews, this.score);
         return listing;
     }
 
+    /**
+     * getters and setters
+     */
     public String getPropertyType() {
         return propertyType;
     }
@@ -252,7 +268,5 @@ public class Listing implements IListing {
     public void setRadiusDist(double radiusDist) {
         this.radiusDist = radiusDist;
     }
-    
-
 
 }

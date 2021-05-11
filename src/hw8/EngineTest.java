@@ -132,7 +132,7 @@ public class EngineTest {
         
         // make clique
         Graph g = e.makeGraph(listings);
-        ArrayList<IListing> closest = e.makeClique(listings, 0, 297, g);
+        ArrayList<IListing> closest = e.makeSubgraph(listings, 0, 297, g);
         
         // checks that clique created only includes listings within the chosen radius
         assertEquals(2, closest.size());

@@ -17,7 +17,7 @@ public class SearchEngineRunner {
     private Scanner s;
 
     /**
-     * Constructor
+     * constructor for the class
      */
     SearchEngineRunner() {
         e = new Engine();
@@ -53,21 +53,26 @@ public class SearchEngineRunner {
         System.out.println("In this simulation, we will ask you to input the ID of the listing that"
                 + " you would like to use to find nearby listings.");
 
+        // get a list of the top 100 listings from suggestionRunner() below
         ArrayList<IListing> top100 = (ArrayList<IListing>) e.outputListings(listings, 100);
         Graph g = e.makeGraph(top100);
 
+        // prompt the user for their preferred id
         System.out.println();
         System.out.println("Enter the ID of the listing you wish to search around: ");
         int listingID = s.nextInt();
 
+        // prompt the user for their preferred max radial distance
         System.out.println();
         System.out.println("Please enter the maximum radius you'd like (miles): ");
         double maxDistance = s.nextDouble();
 
-        ArrayList<IListing> radiusList = e.makeClique(top100, listingID, maxDistance, g);
+        // create a graph of the radial distance listings
+        ArrayList<IListing> radiusList = e.makeSubgraph(top100, listingID, maxDistance, g);
 
+        // print output to console
         System.out.println();
-        System.out.println("Clique of " + radiusList.size() + " nearby listings");
+        System.out.println("Radial group of " + radiusList.size() + " nearby listings");
         String header = String.format("%10s | %80s | %10s | %20s | %20s | %20s | %20s | %10s", "ID",
                 "Name", "Price", "Property Type", "Room Type", "Accommodates", "Number of Reviews",
                 "Distance");
@@ -180,7 +185,7 @@ public class SearchEngineRunner {
         System.out.println("Now we will ask you to rank your preferences by feature.");
         Map<String, Integer> userRank = e.userRank(s);
 
-        // check each listing
+        // check each listing against the preferences and compute the score
         for (IListing listing : listings) {
 
             listing.checkAccommodates(listing, accommodates);
@@ -193,8 +198,11 @@ public class SearchEngineRunner {
             ((Listing) listing).computeScore(userRank);
 
         }
+
+        // create the limited list of listings
         ArrayList<IListing> userList = (ArrayList<IListing>) e.outputListings(listings, topX);
 
+        // print to console
         System.out.println();
         System.out.println("Your top " + topX + " matches are:");
         String header = String.format("%10s | %80s | %10s | %20s | %20s | %20s | %20s | %10s", "ID",

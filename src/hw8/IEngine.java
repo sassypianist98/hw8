@@ -89,7 +89,7 @@ public interface IEngine {
      * @param gComp
      * @return
      */
-    public ArrayList<IListing> makeClique(ArrayList<IListing> listings, int id, double maxDistance,
+    public ArrayList<IListing> makeSubgraph(ArrayList<IListing> listings, int id, double maxDistance,
             Graph gComp);
 
     /**

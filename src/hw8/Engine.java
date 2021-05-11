@@ -22,11 +22,15 @@ import java.util.TreeSet;
  */
 public class Engine implements IEngine {
 
+    // instance vars
     private int maxAccommodates;
     private double maxPrice;
     private int maxNumReviews;
     private Listing epicenter;
 
+    /**
+     * constructor for the class
+     */
     public Engine() {
         maxAccommodates = 0;
         maxPrice = 0;
@@ -36,6 +40,10 @@ public class Engine implements IEngine {
         epicenter.setLon(IListing.LON);
     }
 
+    /**
+     * read in the csv file and create an ArrayList of Listing objects from each
+     * Listing
+     */
     @Override
     public ArrayList<IListing> getListings(String fileName) {
         ArrayList<IListing> listings = new ArrayList<>();
@@ -95,6 +103,10 @@ public class Engine implements IEngine {
         return listings;
     }
 
+    /**
+     * create a refined list of top x listings the user wants to see in
+     * descending order by score
+     */
     @Override
     public Collection<IListing> outputListings(ArrayList<IListing> listings, int topX) {
         Collections.sort(listings, IListing.byDescendingOrder());
@@ -114,6 +126,9 @@ public class Engine implements IEngine {
         return outputList;
     }
 
+    /**
+     * print the listings to console in a formatted manner
+     */
     @Override
     public void printListings(ArrayList<IListing> listings) {
 
@@ -123,6 +138,10 @@ public class Engine implements IEngine {
         }
     }
 
+    /**
+     * display a list of comprehensive property types provided in the dataset,
+     * in lexicographic order
+     */
     @Override
     public Collection<String> getPropertyType(ArrayList<IListing> listings) {
         Set<String> propertyTypes = new TreeSet<>();
@@ -137,6 +156,10 @@ public class Engine implements IEngine {
         return propertyTypes;
     }
 
+    /**
+     * display a list of comprehensive room types provided in the dataset, in
+     * lexicographic order
+     */
     @Override
     public Collection<String> getRoomType(ArrayList<IListing> listings) {
         Set<String> roomTypes = new TreeSet<>();
@@ -187,6 +210,9 @@ public class Engine implements IEngine {
         return g.neighbors(id);
     }
 
+    /**
+     * make a complete graph of the top x listings
+     */
     @Override
     public Graph makeGraph(ArrayList<IListing> listings) {
         Graph gComp = new GraphL();
@@ -207,9 +233,14 @@ public class Engine implements IEngine {
         return gComp;
     }
 
+    /**
+     * Traverse through the graph of top x listings using BFS and remove edges
+     * if the distance between the Listing and the root we care about is >
+     * maxDistance
+     */
     @Override
-    public ArrayList<IListing> makeClique(ArrayList<IListing> listings, int id, double maxDistance,
-            Graph gComp) {
+    public ArrayList<IListing> makeSubgraph(ArrayList<IListing> listings, int id,
+            double maxDistance, Graph gComp) {
 
         // get the new id for the listing based on the truncated list
         int rootId = 0;
@@ -249,10 +280,15 @@ public class Engine implements IEngine {
         return radiusList;
     }
 
+    /**
+     * map the user input ranking to the feature so that we may compute the
+     * score for each listing
+     */
     @Override
     public Map<String, Integer> userRank(Scanner s) {
-        Map<String, Integer> rankingMap = new HashMap<String, Integer>();
 
+        // init the map with 0 for all rankings
+        Map<String, Integer> rankingMap = new HashMap<String, Integer>();
         rankingMap.put("Price", 0);
         rankingMap.put("Accommodates", 0);
         rankingMap.put("Property Type", 0);
@@ -260,12 +296,15 @@ public class Engine implements IEngine {
         rankingMap.put("Number of Reviews", 0);
         rankingMap.put("Distance", 0);
 
+        // iterate through rankingMap and ask the user to enter a number 1-6
         for (Map.Entry<String, Integer> entry : rankingMap.entrySet()) {
             System.out.println("Enter ranking (1-6) for: " + entry.getKey());
 
             int rank = s.nextInt();
             boolean badInput = rankingMap.containsValue(rank) || (rank < 1) || (rank > 6);
 
+            // check if either the rank number has already been used, or if it
+            // is out of bounds
             while (badInput) {
 
                 if (rankingMap.containsValue(rank)) {
@@ -279,12 +318,17 @@ public class Engine implements IEngine {
                     badInput = rankingMap.containsValue(rank) || (rank < 1) || (rank > 6);
                 }
             }
+
+            // add the new rank number as key
             rankingMap.put(entry.getKey(), rank);
 
         }
         return rankingMap;
     }
 
+    /**
+     * getters and setters
+     */
     public Listing getEpicenter() {
         return epicenter;
     }
