@@ -156,9 +156,10 @@ public class Listing implements IListing {
      */
     @Override
     public String toString() {
-        String listing = String.format("%10d | %80s | %10.2f | %20s | %20s | %20d | %20d | %10.2f",
-                this.id, this.listingName, this.price, this.propertyType, this.roomType,
-                this.accommodates, this.numReviews, this.score);
+        String listing = String.format(
+                "%10d | %80s | %10.2f | %20s | %20s | %20d | %20d | %10.2f | %10.2f", this.id,
+                this.listingName, this.price, this.propertyType, this.roomType, this.accommodates,
+                this.numReviews, this.distance, this.score);
         return listing;
     }
 

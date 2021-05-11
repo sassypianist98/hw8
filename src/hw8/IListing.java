@@ -21,12 +21,12 @@ public interface IListing extends Comparable<IListing> {
      */
     public static final HashMap<Integer, Double> RANK = new HashMap<>() {
         {
-            put(1, 0.04);
-            put(2, 0.09);
-            put(3, 0.14);
-            put(4, 0.19);
-            put(5, 0.24);
-            put(6, 0.3);
+            put(6, 0.04);
+            put(5, 0.09);
+            put(4, 0.14);
+            put(3, 0.19);
+            put(2, 0.24);
+            put(1, 0.3);
         }
     };
 
