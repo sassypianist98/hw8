@@ -3,6 +3,12 @@ package hw8;
 import java.util.Collection;
 import java.util.Map;
 
+/**
+ * Listing class implementation
+ * 
+ * @author Tiffany Chen, Sarah Engheta, Sarah Shamsie
+ *
+ */
 public class Listing implements IListing {
 
     // instance vars
@@ -32,7 +38,6 @@ public class Listing implements IListing {
     }
 
     @Override
-
     public void checkPrice(IListing listing, double upperBound, double lowerBound) {
         if ((((Listing) listing).getPrice() > lowerBound)
                 && (((Listing) listing).getPrice() < upperBound)) {
@@ -43,9 +48,8 @@ public class Listing implements IListing {
         }
 
     }
-
+    
     @Override
-
     public void checkDistance(IListing listing, double maxDistance) {
         if (((Listing) listing).getDistance() <= maxDistance) {
             distanceCheck = 1;
@@ -90,6 +94,9 @@ public class Listing implements IListing {
         }
     }
 
+    /**
+     * compute the score of the listing based on user input
+     */
     @Override
     public double computeScore(Map<String, Integer> userRank) {
         double priceScore = RANK.get(userRank.get("Price")) * priceCheck;

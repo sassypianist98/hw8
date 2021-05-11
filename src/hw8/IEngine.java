@@ -2,7 +2,6 @@ package hw8;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -24,7 +23,6 @@ public interface IEngine {
      * 
      * @param fileName
      * @return listings
-     * @TODO - Tiffany
      */
     public ArrayList<IListing> getListings(String fileName);
 
@@ -35,7 +33,6 @@ public interface IEngine {
      * @param score
      * @return
      * 
-     * @TODO - Sarah E
      */
     public Collection<IListing> outputListings(ArrayList<IListing> listings, int topX);
 
@@ -43,25 +40,22 @@ public interface IEngine {
      * Prints listing information
      * 
      * @param listings
-     * @TODO - Sarah E
      */
     public void printListings(ArrayList<IListing> listings);
 
-    /*
+    /**
      * outputs list of property types
      * 
      * @param listings
-     * 
-     * @ TODO - Tiffany
+     * @return
      */
     public Collection<String> getPropertyType(ArrayList<IListing> listings);
 
-    /*
+    /**
      * outputs list of room types
      * 
      * @param listings
-     * 
-     * @TODO - Tiffany
+     * @return
      */
     public Collection<String> getRoomType(ArrayList<IListing> listings);
 
@@ -69,20 +63,17 @@ public interface IEngine {
      * this method computes the distance between two IListing objects based on
      * lat and lon
      * 
-     * @param latOrigin
-     * @param lonOrigin
-     * @param latDestination
-     * @param lonDestination
+     * @param l1
+     * @param l2
      * @return
-     * @TODOD - Sarah S
      */
     public double computeDistance(IListing l1, IListing l2);
 
-
     /**
-     * make a complete Graph of n vertices from all listings
+     * make a complete Graph of n vertices from all listings make a complete
+     * Graph of n vertices from all listings
      * 
-     * @param topListings
+     * @param listings
      * @return
      */
     public Graph makeGraph(ArrayList<IListing> listings);
@@ -92,21 +83,21 @@ public interface IEngine {
      * away from the input listings. If this is true, then add an edge between
      * the two listings
      * 
-     * @param listing     - root of the clique
-     * @param gComp
+     * @param listings
+     * @param id
      * @param maxDistance
-     * @TODO - Sarah S
+     * @param gComp
+     * @return
      */
-    public ArrayList<IListing> makeClique(IListing root, double maxDistance, Graph gComp);
+    public ArrayList<IListing> makeClique(ArrayList<IListing> listings, int id, double maxDistance,
+            Graph gComp);
 
     /**
      * As the user ranks each feature type (1-6), it will be stored in a map
      * associating each feature to a rank
      * 
-     * @param user input scores (1-6)
-     * @return map of features to ranking of importance
-     * 
-     * @TODO - Sarah E
+     * @param s
+     * @return
      */
     public Map<String, Integer> userRank(Scanner s);
 

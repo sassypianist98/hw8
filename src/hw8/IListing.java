@@ -12,6 +12,9 @@ import java.util.Map;
  */
 public interface IListing extends Comparable<IListing> {
 
+    public static final double LAT = 37.80880860279576;
+    public static final double LON = -122.40981027333432;
+
     /**
      * This map stores the percentage breakdown applied to each rank (1-6, where
      * 1 is the highest priority)
@@ -27,16 +30,11 @@ public interface IListing extends Comparable<IListing> {
         }
     };
 
-    public static final double LAT = 37.80880860279576;
-    public static final double LON = -122.40981027333432;
-
     /**
      * Sorts the listings in descending order by final score (a percentage from
      * 0-100)
      * 
      * @return comparator object for the listings
-     * 
-     * @TODO - Tiffany
      */
     public static Comparator<IListing> byDescendingOrder() {
         // comparator terms by weight (descending)
@@ -60,16 +58,39 @@ public interface IListing extends Comparable<IListing> {
     }
 
     /**
+     * Sorts the listings in the clique by descending distance from root
+     * 
+     * @return comparator object for the listings
+     */
+    public static Comparator<IListing> byRadiusDistance() {
+        // comparator terms by weight (descending)
+        Comparator<IListing> comp = new Comparator<IListing>() {
+            @Override
+            public int compare(IListing listing1, IListing listing2) {
+                double rad1 = ((Listing) listing1).getRadiusDist();
+                double rad2 = ((Listing) listing2).getRadiusDist();
+
+                if (((Double) rad1).compareTo(rad2) == 0) { // lexicographic
+                                                            // if same score
+                    return ((Listing) listing1).getListingName()
+                            .compareTo(((Listing) listing2).getListingName());
+                }
+
+                return ((Double) rad2).compareTo(rad1);
+            }
+        };
+
+        return comp;
+    }
+
+    /**
      * checks whether listing's price falls in the range of user preference if
      * it does fall in the range, set priceCheck of listing = 1 otherwise, set
      * priceCheck of listing = 0
      * 
-     * 
-     * 
-     * @param listing, upperbound of price preference, lowerbound of price
-     *                 preference
-     * 
-     * @TODO - Sarah E
+     * @param listing
+     * @param upperBound
+     * @param lowerBound
      */
     public void checkPrice(IListing listing, double upperBound, double lowerBound);
 
@@ -78,8 +99,8 @@ public interface IListing extends Comparable<IListing> {
      * preference if yes, set distanceCheck of listing =1 if no, set
      * distanceCheck of listing =0
      * 
-     * @param listing, distance max
-     * @TODO - Sarah E
+     * @param listing
+     * @param maxDistance
      */
     public void checkDistance(IListing listing, double maxDistance);
 
@@ -87,8 +108,8 @@ public interface IListing extends Comparable<IListing> {
      * checks whether listing's numOfReviews falls in range of user preference
      * if yes, set reviewsCheck = 1 if no, set reviewsCheck = 0
      * 
-     * @param listing, numReviews minimum
-     * @TODO - Sarah E
+     * @param listing
+     * @param numReviewsMin
      */
     public void checkReviews(IListing listing, int numReviewsMin);
 
@@ -96,8 +117,8 @@ public interface IListing extends Comparable<IListing> {
      * checks whether listing's property type is aligned with user preference if
      * yes, set propertyTypeCheck =1 if no, set propertyTypeCheck =0
      * 
-     * @param listing, property type
-     * @TODO - Sarah E
+     * @param listing
+     * @param propertyType
      */
     public void checkPropertyType(IListing listing, String propertyType);
 
@@ -105,8 +126,8 @@ public interface IListing extends Comparable<IListing> {
      * checks whether listing's room type is aligned with user preference if
      * yes, set roomTypeCheck =1 if no, set roomTypeCheck =0
      * 
-     * @param listing, roomType
-     * @TODO - Sarah E
+     * @param listing
+     * @param roomType
      */
     public void checkRoomType(IListing listing, String roomType);
 
@@ -114,11 +135,14 @@ public interface IListing extends Comparable<IListing> {
      * checks whether listing's accommodates num is aligned with user preference
      * if yes, set accommodatesCheck =1 if no, set accommodatesCheck =0
      * 
-     * @param listing, accommodates num
-     * @TODO - Sarah E
+     * @param listing
+     * @param accommodates
      */
     public void checkAccommodates(IListing listing, int accommodates);
 
+    /**
+     * generic compareTo method for objects
+     */
     public int compareTo(IListing o);
 
     /**
@@ -126,12 +150,9 @@ public interface IListing extends Comparable<IListing> {
      * on the weighted percentage computed from its features, applying weights
      * to each relevant part of the listing
      * 
-     * @param map of feature type to user rank (1-6)
-     * @return double score
-     * 
-     * @TODO - Sarah S
+     * @param userRank
+     * @return
      */
-
     public double computeScore(Map<String, Integer> userRank);
 
 };

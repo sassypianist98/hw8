@@ -1,12 +1,16 @@
 package hw8;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeSet;
 
+/**
+ * Runner class for the project
+ * 
+ * @author Tiffany Chen, Sarah Engheta, Sarah Shamsie
+ *
+ */
 public class SearchEngineRunner {
     private Engine e;
     private ArrayList<IListing> listings;
@@ -27,6 +31,8 @@ public class SearchEngineRunner {
      */
     void mainRunner() {
         suggestionRunner();
+
+        System.out.println();
         System.out.println("Do you want to see nearby listings? Y/N");
         String response = s.next();
         if (response.equals("Y")) {
@@ -44,13 +50,13 @@ public class SearchEngineRunner {
      */
     public void radiusRunner() {
         // make graph of all listings
-        System.out.println(
-                "In this simulation, we will ask you to input the ID of the listing that"
+        System.out.println("In this simulation, we will ask you to input the ID of the listing that"
                 + " you would like to use to find nearby listings.");
-    
-        ArrayList<IListing> top100 = (ArrayList<IListing>) e.outputListings(listings, 10);
+
+        ArrayList<IListing> top100 = (ArrayList<IListing>) e.outputListings(listings, 100);
         Graph g = e.makeGraph(top100);
 
+        System.out.println();
         System.out.println("Enter the ID of the listing you wish to search around: ");
         int listingID = s.nextInt();
 
@@ -58,14 +64,26 @@ public class SearchEngineRunner {
         System.out.println("Please enter the maximum radius you'd like (miles): ");
         double maxDistance = s.nextDouble();
 
-        ArrayList<IListing> radiusList = e.makeClique(listings.get(listingID), maxDistance, g);
+        ArrayList<IListing> radiusList = e.makeClique(top100, listingID, maxDistance, g);
+
+        System.out.println();
+        System.out.println("Clique of " + radiusList.size() + " nearby listings");
+        String header = String.format("%10s | %80s | %10s | %20s | %20s | %20s | %20s | %10s", "ID",
+                "Name", "Price", "Property Type", "Room Type", "Accommodates", "Number of Reviews",
+                "Distance");
+        System.out.println(header);
+        String underscore = String.format("%10s   %80s   %10s   %20s   %20s   %20s   %20s   %10s",
+                "--", "----", "-----", "-------------", "---------", "------------",
+                "-----------------", "--------");
+        System.out.println(underscore);
 
         for (IListing i : radiusList) {
             Listing curr = (Listing) i;
-            System.out.println(String.format("%-20d %-20s %-20f %-20s %-20s %-20d %-20d %f",
-                    curr.getId(), curr.getListingName(), curr.getPrice(), curr.getPropertyType(),
-                    curr.getRoomType(), curr.getAccommodates(), curr.getNumReviews(),
-                    curr.getRadiusDist()));
+            System.out.println(
+                    String.format("%10d | %80s | %10.2f | %20s | %20s | %20d | %20d | %10.2f",
+                            curr.getId(), curr.getListingName(), curr.getPrice(),
+                            curr.getPropertyType(), curr.getRoomType(), curr.getAccommodates(),
+                            curr.getNumReviews(), curr.getRadiusDist()));
         }
     }
 
@@ -162,7 +180,6 @@ public class SearchEngineRunner {
         System.out.println("Now we will ask you to rank your preferences by feature.");
         Map<String, Integer> userRank = e.userRank(s);
 
-        
         // check each listing
         for (IListing listing : listings) {
 
@@ -173,21 +190,22 @@ public class SearchEngineRunner {
             listing.checkReviews(listing, minReviews);
             listing.checkRoomType(listing, userRoomType);
 
-            
             ((Listing) listing).computeScore(userRank);
-            
+
         }
         ArrayList<IListing> userList = (ArrayList<IListing>) e.outputListings(listings, topX);
 
         System.out.println();
         System.out.println("Your top " + topX + " matches are:");
         String header = String.format("%10s | %80s | %10s | %20s | %20s | %20s | %20s | %10s", "ID",
-                "Name", "Price", "Property Type", "Room Type", "Accommodates", "Number of Reviews", "Score");
+                "Name", "Price", "Property Type", "Room Type", "Accommodates", "Number of Reviews",
+                "Score");
         System.out.println(header);
-        String underscore = String.format("%10s   %80s   %10s   %20s   %20s   %20s   %20s   %10s", "--",
-                "----", "-----", "-------------", "---------", "------------", "-----------------", "-----");
+        String underscore = String.format("%10s   %80s   %10s   %20s   %20s   %20s   %20s   %10s",
+                "--", "----", "-----", "-------------", "---------", "------------",
+                "-----------------", "-----");
         System.out.println(underscore);
-       
+
         e.printListings(userList);
 
     }

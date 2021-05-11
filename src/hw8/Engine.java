@@ -9,16 +9,19 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 import java.util.Scanner;
-
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * Engine class implementation
+ * 
+ * @author Tiffany Chen, Sarah Engheta, Sarah Shamsie
+ *
+ */
 public class Engine implements IEngine {
 
-    private List<IListing> allListings;
     private int maxAccommodates;
     private double maxPrice;
     private int maxNumReviews;
@@ -78,7 +81,7 @@ public class Engine implements IEngine {
                 ((Listing) listing).setNumReviews(numReviews);
                 ((Listing) listing).setDistance(computeDistance(epicenter, listing));
                 ((Listing) listing).setId(count++);
-                
+
                 listings.add(listing);
             }
 
@@ -89,7 +92,6 @@ public class Engine implements IEngine {
             e.printStackTrace();
         }
 
-        allListings = listings;
         return listings;
     }
 
@@ -97,21 +99,25 @@ public class Engine implements IEngine {
     public Collection<IListing> outputListings(ArrayList<IListing> listings, int topX) {
         Collections.sort(listings, IListing.byDescendingOrder());
 
+        // if there are no matching listings then return empty list
         if (listings.size() < topX) {
             return listings;
         }
 
+        // otherwise, add the top X listings to an arraylist
         List<IListing> outputList = new ArrayList<IListing>();
 
         for (int i = 0; i < topX; i++) {
             outputList.add(listings.get(i));
         }
+
         return outputList;
     }
 
     @Override
     public void printListings(ArrayList<IListing> listings) {
 
+        // print lisitngs using toString method
         for (int i = 0; i < listings.size(); i++) {
             System.out.println(listings.get(i).toString());
         }
@@ -121,6 +127,7 @@ public class Engine implements IEngine {
     public Collection<String> getPropertyType(ArrayList<IListing> listings) {
         Set<String> propertyTypes = new TreeSet<>();
 
+        // return the unique list of property types
         for (IListing listing : listings) {
             Listing curr = (Listing) listing;
             if (!propertyTypes.contains(curr.getPropertyType())) {
@@ -134,6 +141,7 @@ public class Engine implements IEngine {
     public Collection<String> getRoomType(ArrayList<IListing> listings) {
         Set<String> roomTypes = new TreeSet<>();
 
+        // return the unique list of room types
         for (IListing listing : listings) {
             Listing curr = (Listing) listing;
             if (!roomTypes.contains(curr.getRoomType())) {
@@ -155,6 +163,7 @@ public class Engine implements IEngine {
     public double computeDistance(IListing l1, IListing l2) {
         double earthRadius = 3961;
 
+        // compute the distance in miles between two points
         double lat2Rad = ((Listing) l2).getLat() * Math.PI / 180;
         double lat1Rad = ((Listing) l1).getLat() * Math.PI / 180;
         double dLonRad = (((Listing) l2).getLon() - ((Listing) l1).getLon()) * Math.PI / 180;
@@ -181,17 +190,16 @@ public class Engine implements IEngine {
     @Override
     public Graph makeGraph(ArrayList<IListing> listings) {
         Graph gComp = new GraphL();
-        gComp.init(allListings.size());
+        gComp.init(listings.size());
 
-        for (int i = 0; i < allListings.size(); i++) {
-            for (int j = 0; j < allListings.size(); j++) {
+        // loop through the listings and create an undirected graph off of the
+        // top x listings
+        for (int i = 0; i < listings.size(); i++) {
+            for (int j = 0; j < listings.size(); j++) {
 
-                int v = ((Listing) allListings.get(i)).getId();
-                int w = ((Listing) allListings.get(j)).getId();
-
-                if (v != w) {
-                    gComp.addEdge(v, w, 1);
-                    gComp.addEdge(w, v, 1);
+                if (i != j) {
+                    gComp.addEdge(i, j, 1);
+                    gComp.addEdge(j, i, 1);
                 }
             }
         }
@@ -200,29 +208,45 @@ public class Engine implements IEngine {
     }
 
     @Override
-    public ArrayList<IListing> makeClique(IListing root, double maxDistance, Graph gComp) {
-        int rootId = ((Listing) root).getId();
+    public ArrayList<IListing> makeClique(ArrayList<IListing> listings, int id, double maxDistance,
+            Graph gComp) {
+
+        // get the new id for the listing based on the truncated list
+        int rootId = 0;
+        IListing root = null;
+
+        for (int i = 0; i < listings.size(); i++) {
+            Listing curr = (Listing) listings.get(i);
+            if (curr.getId() == id) {
+                rootId = i;
+                root = curr;
+                break;
+            }
+        }
+        System.out.println(rootId);
 
         // do bfs to delete edges and compute within the radius
         for (int i : getNeighbors(gComp, rootId)) {
 
-            if (computeDistance(root, (Listing) allListings.get(i)) > maxDistance) {
+            if (computeDistance(root, (Listing) listings.get(i)) > maxDistance) {
                 gComp.removeEdge(rootId, i);
                 gComp.removeEdge(i, rootId);
             }
         }
 
+        // loop through the neighbors of the listing and compute the distance
         ArrayList<IListing> radiusList = new ArrayList<>();
 
         for (int i : getNeighbors(gComp, rootId)) {
 
             // compute radius distance bw root and neighbor
-            ((Listing) allListings.get(i))
-                    .setRadiusDist(computeDistance(root, (Listing) allListings.get(i)));
+            ((Listing) listings.get(i))
+                    .setRadiusDist(computeDistance(root, (Listing) listings.get(i)));
 
             // add all neighbors to arraylist
-            radiusList.add(allListings.get(i));
+            radiusList.add(listings.get(i));
         }
+        Collections.sort(radiusList, IListing.byRadiusDistance());
         return radiusList;
     }
 
@@ -237,7 +261,6 @@ public class Engine implements IEngine {
         rankingMap.put("Number of Reviews", 0);
         rankingMap.put("Distance", 0);
 
-        
         for (Map.Entry<String, Integer> entry : rankingMap.entrySet()) {
             System.out.println("Enter ranking (1-6) for: " + entry.getKey());
 
