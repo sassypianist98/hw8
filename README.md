@@ -40,7 +40,7 @@ Part II uses the following themes relevant to coursework:
 Supplementary to our code, we provide a Class Diagram that displays the hierarchical and strategic relationships between our classes.
 
 ### Composite Design
-Hierchical relationships are shown between IListing and Listing (aggregate, parent-child relationship), IEngine and Engine, and Graph and GraphL. We show a one-to-one relationship between Engine and Listing, one-to-one relationship between Engine and Graph, one-to-one relationship between SearchEngineRunner and Engine, and one-to-many relationship between GraphL and Edge.
+Hierchical relationships are shown between IListing and Listing (aggregate, parent-child relationship), IEngine and Engine, and Graph and GraphL. We show a one-to-many relationship between Engine and Listing, one-to-one relationship between Engine and Graph, one-to-one relationship between SearchEngineRunner and Engine, and one-to-many relationship between GraphL and Edge.
 
 ### Strategy Design
 A Strategy relationship is shown in the Listing class for a Collection of ways to sort a Collection of Lisitng objects (ListingComparison). We implement Comparators in three different ways:
