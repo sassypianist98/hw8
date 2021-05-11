@@ -99,7 +99,7 @@ public class Engine implements IEngine {
     public Collection<IListing> outputListings(ArrayList<IListing> listings, int topX) {
         Collections.sort(listings, IListing.byDescendingOrder());
 
-        // if there are no matching listings then return empty list
+        // if number of listings is less than the top X num, return all listings
         if (listings.size() < topX) {
             return listings;
         }
@@ -223,7 +223,6 @@ public class Engine implements IEngine {
                 break;
             }
         }
-        System.out.println(rootId);
 
         // do bfs to delete edges and compute within the radius
         for (int i : getNeighbors(gComp, rootId)) {

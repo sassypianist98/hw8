@@ -50,6 +50,11 @@ public class Listing implements IListing {
     }
     
     @Override
+    public int getPriceCheckValue() {
+        return priceCheck;
+    }
+    
+    @Override
     public void checkDistance(IListing listing, double maxDistance) {
         if (((Listing) listing).getDistance() <= maxDistance) {
             distanceCheck = 1;

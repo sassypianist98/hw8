@@ -1,0 +1,4 @@
+Name,Lat,Lon,Property Type,Room Type,Max Accommodates,Price,Number of Reviews
+Art Deco-Era Apartment with 2B/2B,37.39473,-128.39437,Apartment,Entire Apartment,5,250,34
+Quaint Cottage Private Bed w/Shared Bath,38.3947,-127.33497,Cottage,Private Room,2,105,59
+Hotel Room at Sunnyside Inn w/Queen Bed and Balcony,37.9374,-127.84,Bed and Breakfast,Private Room,2,120,369

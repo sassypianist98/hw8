@@ -154,5 +154,10 @@ public interface IListing extends Comparable<IListing> {
      * @return
      */
     public double computeScore(Map<String, Integer> userRank);
+    
+    /**
+     * returns the price check value
+     */
+    public int getPriceCheckValue();
 
 };
