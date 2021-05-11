@@ -168,6 +168,8 @@ public class SearchEngineRunner {
         // get price
         System.out.println();
         System.out.println("Enter the min price per night: ");
+        String maxp = String.format("%.2f", e.getMaxPrice());
+        System.out.println("The max price possible is: $" + maxp);
         double minPrice = s.nextDouble();
         while (minPrice < 0 || minPrice > e.getMaxPrice()) {
             System.out.println();
@@ -177,6 +179,7 @@ public class SearchEngineRunner {
 
         System.out.println();
         System.out.println("Enter the max price per night: ");
+        System.out.println("The max price possible is: $" + maxp);
         double maxPrice = s.nextDouble();
         while (maxPrice <= minPrice || maxPrice > e.getMaxPrice()) {
             System.out.println();
