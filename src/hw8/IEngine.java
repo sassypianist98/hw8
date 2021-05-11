@@ -26,7 +26,7 @@ public interface IEngine {
      * @return listings
      * @TODO - Tiffany
      */
-    public Collection<IListing> getListings(String fileName);
+    public ArrayList<IListing> getListings(String fileName);
 
     /**
      * this method creates a list of listings that meet the score threshold
@@ -37,7 +37,7 @@ public interface IEngine {
      * 
      * @TODO - Sarah E
      */
-    public Collection<IListing> outputListings(Collection<IListing> listings, int topX);
+    public Collection<IListing> outputListings(ArrayList<IListing> listings, int topX);
 
     /**
      * Prints listing information
@@ -45,7 +45,7 @@ public interface IEngine {
      * @param listings
      * @TODO - Sarah E
      */
-    public void printListings(Collection<IListing> listings);
+    public void printListings(ArrayList<IListing> listings);
 
     /*
      * outputs list of property types
@@ -54,7 +54,7 @@ public interface IEngine {
      * 
      * @ TODO - Tiffany
      */
-    public Collection<String> getPropertyType(Collection<IListing> listings);
+    public Collection<String> getPropertyType(ArrayList<IListing> listings);
 
     /*
      * outputs list of room types
@@ -63,7 +63,7 @@ public interface IEngine {
      * 
      * @TODO - Tiffany
      */
-    public Collection<String> getRoomType(Collection<IListing> listings);
+    public Collection<String> getRoomType(ArrayList<IListing> listings);
 
     /**
      * this method computes the distance between two IListing objects based on
@@ -78,13 +78,6 @@ public interface IEngine {
      */
     public double computeDistance(IListing l1, IListing l2);
 
-    /**
-     * Return the neighbors ids of a specific node
-     * 
-     * @param id the id of the page
-     * @return the array of neighbor(s)
-     */
-    public int[] getNeighbors(Graph g, int id);
 
     /**
      * make a complete Graph of n vertices from all listings
@@ -92,7 +85,7 @@ public interface IEngine {
      * @param allListings
      * @return
      */
-    public Graph makeGraph(Collection<IListing> allListings);
+    public Graph makeGraph();
 
     /**
      * this method returns a clique of listings where that are <= maxDistance
@@ -114,6 +107,6 @@ public interface IEngine {
      * 
      * @TODO - Sarah E
      */
-    public Map<String, Integer> userRank();
+    public Map<String, Integer> userRank(Scanner s);
 
 }

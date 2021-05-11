@@ -38,9 +38,9 @@ public class Listing implements IListing {
                 && (((Listing) listing).getPrice() < upperBound)) {
             priceCheck = 1;
 
+        } else {
+            priceCheck = 0;
         }
-
-        priceCheck = 0;
 
     }
 
@@ -92,22 +92,22 @@ public class Listing implements IListing {
 
     @Override
     public double computeScore(Map<String, Integer> userRank) {
+        System.out.println(userRank);
+        double priceScore = RANK.get(userRank.get("Price")) * priceCheck;
+        double distScore = RANK.get(userRank.get("Distance")) * distanceCheck;
+        double reviewScore = RANK.get(userRank.get("Number of Reviews")) * reviewsCheck;
+        double accScore = RANK.get(userRank.get("Accommodates")) * accommodatesCheck;
+        double roomScore = RANK.get(userRank.get("Room Type")) * roomTypeCheck;
+        double propertyScore = RANK.get(userRank.get("Property Type")) * propertyTypeCheck;
 
-        double priceScore = userRank.get("Price") * priceCheck;
-        double distScore = userRank.get("Distance") * distanceCheck;
-        double reviewScore = userRank.get("Number of Reviews") * reviewsCheck;
-        double accScore = userRank.get("Accommodates") * accommodatesCheck;
-        double roomScore = userRank.get("Room Type") * roomTypeCheck;
-        double propertyScore = userRank.get("Property Type") * propertyTypeCheck;
-
-        score = priceScore + distScore + reviewScore + accScore + roomScore + propertyScore;
+        setScore(priceScore + distScore + reviewScore + accScore + roomScore + propertyScore);
 
         return score;
     }
 
     @Override
     public String toString() {
-        String listing = String.format("%-20d %-20s %-20f %-20s %-20s %-20d %-20d %f", this.id,
+        String listing = String.format("%-20d %-20s %-20.2f %-20s %-20s %-20d %-20d %.2f", this.id,
                 this.listingName, this.price, this.propertyType, this.roomType, this.accommodates,
                 this.numReviews, this.score);
         return listing;

@@ -26,7 +26,7 @@ public interface IListing extends Comparable<IListing> {
             put(6, 0.3);
         }
     };
-    
+
     public static final double LAT = 37.80880860279576;
     public static final double LON = -122.40981027333432;
 
@@ -63,8 +63,8 @@ public interface IListing extends Comparable<IListing> {
      * checks whether listing's price falls in the range of user preference if
      * it does fall in the range, set priceCheck of listing = 1 otherwise, set
      * priceCheck of listing = 0
-
-
+     * 
+     * 
      * 
      * @param listing, upperbound of price preference, lowerbound of price
      *                 preference
@@ -119,7 +119,7 @@ public interface IListing extends Comparable<IListing> {
      */
     public void checkAccommodates(IListing listing, int accommodates);
 
-
+    public int compareTo(IListing o);
 
     /**
      * This method calculates the "final score" associated with a listing based
@@ -133,6 +133,5 @@ public interface IListing extends Comparable<IListing> {
      */
 
     public double computeScore(Map<String, Integer> userRank);
-
 
 };
