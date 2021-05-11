@@ -62,6 +62,11 @@ public class Listing implements IListing {
             distanceCheck = 0;
         }
     }
+    
+    @Override
+    public int getDistanceCheckValue() {
+        return distanceCheck;
+    }
 
     @Override
     public void checkReviews(IListing listing, int numReviewsMin) {
@@ -70,6 +75,11 @@ public class Listing implements IListing {
         } else {
             reviewsCheck = 0;
         }
+    } 
+    
+    @Override
+    public int getReviewCheckValue() {
+        return reviewsCheck;
     }
 
     @Override
@@ -80,6 +90,11 @@ public class Listing implements IListing {
             propertyTypeCheck = 0;
         }
     }
+    
+    @Override
+    public int getPropertyCheckValue() {
+        return propertyTypeCheck;
+    }
 
     @Override
     public void checkRoomType(IListing listing, String roomType) {
@@ -89,6 +104,11 @@ public class Listing implements IListing {
             roomTypeCheck = 0;
         }
     }
+    
+    @Override
+    public int getRoomTypeCheckValue() {
+        return roomTypeCheck;
+    }
 
     @Override
     public void checkAccommodates(IListing listing, int accommodates) {
@@ -97,6 +117,11 @@ public class Listing implements IListing {
         } else {
             accommodatesCheck = 0;
         }
+    }
+    
+    @Override
+    public int getAccommodatesCheckValue() {
+        return accommodatesCheck;
     }
 
     /**

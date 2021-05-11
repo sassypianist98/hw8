@@ -159,5 +159,30 @@ public interface IListing extends Comparable<IListing> {
      * returns the price check value
      */
     public int getPriceCheckValue();
+    
+    /**
+     * returns the distance check value
+     */
+    public int getDistanceCheckValue();
+    
+    /**
+     * returns the review check value
+     */
+    public int getReviewCheckValue();
+    
+    /**
+     * returns valid property type value
+     */
+    public int getPropertyCheckValue();
+    
+    /**
+     * returns valid room type value
+     */
+    public int getRoomTypeCheckValue();
+    
+    /**
+     * returns the accommodates check value
+     */
+    public int getAccommodatesCheckValue();
 
 };
