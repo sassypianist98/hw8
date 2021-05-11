@@ -34,3 +34,20 @@ Part II uses the following themes relevant to coursework:
 * **Comparators** to sort and order recommended Listings by various dimensions
 * **Various Graph Representations** to store the Listings as vertices
 * **Breadth First Search** to traverse the graph
+
+## Part III: Class Diagram
+####
+Supplementary to our code, we provide a Class Diagram that displays the hierarchical and strategic relationships between our classes.
+
+### Composite Design
+Hierchical relationships are shown between IListing and Listing (aggregate, parent-child relationship), IEngine and Engine, and Graph and GraphL. We show a one-to-one relationship between Engine and Listing, one-to-one relationship between Engine and Graph, one-to-one relationship between SearchEngineRunner and Engine, and one-to-many relationship between GraphL and Edge.
+
+### Strategy Design
+A Strategy relationship is shown in the Listing class for a Collection of ways to sort a Collection of Lisitng objects (ListingComparison). We implement Comparators in three different ways:
+* Lexicographic, or the natural ordering based on Listing name
+* Descending order, by computed score in Part I
+* Distance order, by the haversine distance between two listings in Part II
+
+## Part IV: Unit Testing
+####
+JUnit tests are provided for each class.
