@@ -78,7 +78,7 @@ public class Engine implements IEngine {
                 ((Listing) listing).setNumReviews(numReviews);
                 ((Listing) listing).setDistance(computeDistance(epicenter, listing));
                 ((Listing) listing).setId(count++);
-
+                
                 listings.add(listing);
             }
 
@@ -179,7 +179,7 @@ public class Engine implements IEngine {
     }
 
     @Override
-    public Graph makeGraph() {
+    public Graph makeGraph(ArrayList<IListing> listings) {
         Graph gComp = new GraphL();
         gComp.init(allListings.size());
 
@@ -200,8 +200,7 @@ public class Engine implements IEngine {
     }
 
     @Override
-    public ArrayList<IListing> makeClique(IListing root, double maxDistance) {
-        Graph gComp = makeGraph();
+    public ArrayList<IListing> makeClique(IListing root, double maxDistance, Graph gComp) {
         int rootId = ((Listing) root).getId();
 
         // do bfs to delete edges and compute within the radius

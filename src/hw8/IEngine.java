@@ -82,10 +82,10 @@ public interface IEngine {
     /**
      * make a complete Graph of n vertices from all listings
      * 
-     * @param allListings
+     * @param topListings
      * @return
      */
-    public Graph makeGraph();
+    public Graph makeGraph(ArrayList<IListing> listings);
 
     /**
      * this method returns a clique of listings where that are <= maxDistance
@@ -93,10 +93,11 @@ public interface IEngine {
      * the two listings
      * 
      * @param listing     - root of the clique
+     * @param gComp
      * @param maxDistance
      * @TODO - Sarah S
      */
-    public ArrayList<IListing> makeClique(IListing root, double maxDistance);
+    public ArrayList<IListing> makeClique(IListing root, double maxDistance, Graph gComp);
 
     /**
      * As the user ranks each feature type (1-6), it will be stored in a map

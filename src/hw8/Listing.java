@@ -92,7 +92,6 @@ public class Listing implements IListing {
 
     @Override
     public double computeScore(Map<String, Integer> userRank) {
-        System.out.println(userRank);
         double priceScore = RANK.get(userRank.get("Price")) * priceCheck;
         double distScore = RANK.get(userRank.get("Distance")) * distanceCheck;
         double reviewScore = RANK.get(userRank.get("Number of Reviews")) * reviewsCheck;

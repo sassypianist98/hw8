@@ -28,8 +28,8 @@ public class SearchEngineRunner {
     void mainRunner() {
         suggestionRunner();
         System.out.println("Do you want to see nearby listings? Y/N");
-        String answer = s.nextLine();
-        if (answer.equals("Y")) {
+        String response = s.next();
+        if (response.equals("Y")) {
             radiusRunner();
         } else {
             System.out.println();
@@ -44,7 +44,12 @@ public class SearchEngineRunner {
      */
     public void radiusRunner() {
         // make graph of all listings
-        Graph g = e.makeGraph();
+        System.out.println(
+                "In this simulation, we will ask you to input the ID of the listing that"
+                + " you would like to use to find nearby listings.");
+    
+        ArrayList<IListing> top100 = (ArrayList<IListing>) e.outputListings(listings, 10);
+        Graph g = e.makeGraph(top100);
 
         System.out.println("Enter the ID of the listing you wish to search around: ");
         int listingID = s.nextInt();
@@ -53,7 +58,7 @@ public class SearchEngineRunner {
         System.out.println("Please enter the maximum radius you'd like (miles): ");
         double maxDistance = s.nextDouble();
 
-        ArrayList<IListing> radiusList = e.makeClique(listings.get(listingID), maxDistance);
+        ArrayList<IListing> radiusList = e.makeClique(listings.get(listingID), maxDistance, g);
 
         for (IListing i : radiusList) {
             Listing curr = (Listing) i;
@@ -170,9 +175,7 @@ public class SearchEngineRunner {
 
             
             ((Listing) listing).computeScore(userRank);
-            System.out.println(((Listing) listing).getScore());
             
-
         }
         ArrayList<IListing> userList = (ArrayList<IListing>) e.outputListings(listings, topX);
 
